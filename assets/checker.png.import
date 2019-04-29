@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/pawn.png-974efc2cffd025254cc4bfbe35418ab9.stex"
+path="res://.import/checker.png-7dcf8ccb90954474f03b6153c771f4ea.stex"
 
 [deps]
 
-source_file="res://pawn.png"
-dest_files=[ "res://.import/pawn.png-974efc2cffd025254cc4bfbe35418ab9.stex" ]
+source_file="res://assets/checker.png"
+dest_files=[ "res://.import/checker.png-7dcf8ccb90954474f03b6153c771f4ea.stex" ]
 
 [params]
 

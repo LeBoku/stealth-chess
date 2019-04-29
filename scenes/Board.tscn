@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Board.gd" type="Script" id=1]
+[ext_resource path="res://scenes/Board.gd" type="Script" id=1]
 [ext_resource path="res://tiles.res" type="TileSet" id=2]
-[ext_resource path="res://Piece.tscn" type="PackedScene" id=3]
-[ext_resource path="res://pawn.png" type="Texture" id=4]
+[ext_resource path="res://assets/pawn.png" type="Texture" id=3]
 
 [node name="Board" type="Node2D" index="0"]
 
@@ -32,14 +31,9 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Piece" parent="." index="1" instance=ExtResource( 3 )]
+[node name="pawn" type="Sprite" parent="." index="1"]
 
-position = Vector2( 16, 16 )
-board = NodePath("..")
-
-[node name="pawn" type="Sprite" parent="." index="2"]
-
-position = Vector2( 176, 112 )
-texture = ExtResource( 4 )
+position = Vector2( 112, 176 )
+texture = ExtResource( 3 )
 
 

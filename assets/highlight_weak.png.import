@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/checker.png-6bb199bedbd039461e4248c1d0b9691d.stex"
+path="res://.import/highlight_weak.png-6945a04e351d9fbc196b3d13e93458ee.stex"
 
 [deps]
 
-source_file="res://checker.png"
-dest_files=[ "res://.import/checker.png-6bb199bedbd039461e4248c1d0b9691d.stex" ]
+source_file="res://assets/highlight_weak.png"
+dest_files=[ "res://.import/highlight_weak.png-6945a04e351d9fbc196b3d13e93458ee.stex" ]
 
 [params]
 
