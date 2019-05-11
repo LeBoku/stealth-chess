@@ -9,10 +9,11 @@ onready var board = get_node("/root/Board")
 var piece_moves = rotate_moves([Vector2(0, 1), Vector2(0, 2)])
 
 func _input(event):
-	if event is InputEventMouseButton and not event.pressed and is_over_piece(event.position) and is_selectable:
+	if event is InputEventMouseButton and not event.pressed and is_selectable and board.is_same_board_position(self.position, event.position):
 		if not is_selected:
 			is_selected = true
 			emit_signal("on_selected" , self)
+
 		else:
 			is_selected = false
 			emit_signal("on_deselected" , self)
