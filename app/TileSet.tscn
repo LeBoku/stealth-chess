@@ -2,24 +2,18 @@
 
 [ext_resource path="res://assets/checker.png" type="Texture" id=1]
 
-
 [node name="Node2D" type="Node2D"]
 
-[node name="WhiteSquare" type="Sprite" parent="." index="0"]
-
+[node name="WhiteSquare" type="Sprite" parent="."]
 position = Vector2( 35.4006, 35.1937 )
 scale = Vector2( 2.16246, 2.1754 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 33, 0, 32, 32 )
 
-[node name="BlackSquare" type="Sprite" parent="." index="1"]
-
+[node name="BlackSquare" type="Sprite" parent="."]
 position = Vector2( 120, 50 )
 scale = Vector2( 2.1875, 2.1875 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 32, 32 )
-_sections_unfolded = [ "Region" ]
-
-
