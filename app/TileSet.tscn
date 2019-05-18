@@ -1,17 +1,22 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://assets/checker.png" type="Texture" id=1]
+[ext_resource path="res://assets/obscured.png" type="Texture" id=2]
 
 [node name="Node2D" type="Node2D"]
 
 [node name="WhiteSquare" type="Sprite" parent="."]
-position = Vector2( 70.2942, 59.7485 )
+position = Vector2( 32.8159, 32.0956 )
 texture = ExtResource( 1 )
 region_enabled = true
-region_rect = Rect2( 50, 0, 50, 50 )
+region_rect = Rect2( 51, 0, 50, 50 )
 
 [node name="BlackSquare" type="Sprite" parent="."]
-position = Vector2( 202.711, 66.8006 )
+position = Vector2( 90.2758, 38.3688 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 50, 50 )
+
+[node name="Obstacle" type="Sprite" parent="."]
+position = Vector2( 179.414, 44.2056 )
+texture = ExtResource( 2 )

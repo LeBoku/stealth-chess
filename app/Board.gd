@@ -1,13 +1,9 @@
-extends Node2D
+extends TileMap
 
 var Highlight = preload("res://Highlight.tscn")
 
 var selected_figure = null
-var square_size = 40
-onready var squares = $TileMap
-
-func _ready():
-	square_size = squares.cell_size.x
+var square_size = cell_size.x
 
 func _on_figure_on_selected(figure):
 	selected_figure = figure
@@ -38,7 +34,8 @@ func is_same_board_position(a, b):
 func get_valid_moves(moves):
 	var valid_moves = []
 	for move in moves:
-		if 0 <= move.x and move.x < 8 and 0 <= move.y and move.y < 8:
+		var tile_type = get_cell(move.x, move.y)
+		if tile_type == 0 or tile_type == 1:
 			valid_moves.append(move)
 			
 	return valid_moves
