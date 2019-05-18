@@ -5,15 +5,13 @@
 [node name="Node2D" type="Node2D"]
 
 [node name="WhiteSquare" type="Sprite" parent="."]
-position = Vector2( 35.4006, 35.1937 )
-scale = Vector2( 2.16246, 2.1754 )
+position = Vector2( 70.2942, 59.7485 )
 texture = ExtResource( 1 )
 region_enabled = true
-region_rect = Rect2( 33, 0, 32, 32 )
+region_rect = Rect2( 50, 0, 50, 50 )
 
 [node name="BlackSquare" type="Sprite" parent="."]
-position = Vector2( 120, 50 )
-scale = Vector2( 2.1875, 2.1875 )
+position = Vector2( 202.711, 66.8006 )
 texture = ExtResource( 1 )
 region_enabled = true
-region_rect = Rect2( 0, 0, 32, 32 )
+region_rect = Rect2( 0, 0, 50, 50 )
