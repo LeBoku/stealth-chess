@@ -7,6 +7,7 @@ var is_selectable = true
 
 onready var board = get_node("/root/Board")
 var piece_moves = rotate_moves([Vector2(0, 1), Vector2(0, 2)])
+var can_jump = false
 
 func _input(event):
 	if event is InputEventMouseButton and not event.pressed and is_selectable and board.is_same_board_position(self.position, event.position):
@@ -36,5 +37,8 @@ func rotate_moves(moves):
 	
 	return rotated_moves
 
+func get_board_position():
+	return board.convert_to_board_position(self.position);
+
 func is_over_piece(position):
-	return board.convert_to_board_position(self.position) == board.convert_to_board_position(position)
+	return get_board_position() == board.convert_to_board_position(position)

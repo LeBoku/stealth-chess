@@ -8,13 +8,14 @@ var square_size = cell_size.x
 func _on_figure_on_selected(figure):
 	selected_figure = figure
 	var moves = figure.get_possible_moves()
-	for move in get_valid_moves(moves):
+	for move in get_valid_moves(moves, figure):
 		var h = Highlight.instance();
 		add_child(h)
 		h.position = convert_to_position(move)
 		h.connect("highlight_selected", self, "_on_highlight_selected")
 		
 func _on_figure_on_deselected(figure):
+	selected_figure = null
 	var highlights = get_tree().get_nodes_in_group("Highlight")
 	for h in highlights:
 		remove_child(h)
@@ -31,11 +32,32 @@ func convert_to_board_position(position):
 func is_same_board_position(a, b):
 	return convert_to_board_position(a) == convert_to_board_position(b)
 
-func get_valid_moves(moves):
+func get_valid_moves(moves, figure):
 	var valid_moves = []
+	var start_position = figure.get_board_position()
+	
 	for move in moves:
-		var tile_type = get_cell(move.x, move.y)
-		if tile_type == 0 or tile_type == 1:
+		var is_valid_move = true
+		
+		if not figure.can_jump:
+			var current_step = start_position
+			 
+			var direction = (move - start_position).normalized()
+			direction.x = ceil(direction.x)
+			direction.y = ceil(direction.y)
+			
+			while is_valid_move and current_step.distance_to(move) > 0:
+				current_step = current_step + direction
+				is_valid_move = is_cell_valid(current_step)
+			
+		else:
+			is_valid_move = is_cell_valid(move)
+			
+		if is_valid_move:
 			valid_moves.append(move)
 			
 	return valid_moves
+	
+func is_cell_valid(position):
+	var tile_type = get_cell(position.x, position.y)
+	return tile_type == 0 or tile_type == 1
