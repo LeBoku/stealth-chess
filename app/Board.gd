@@ -1,6 +1,7 @@
 extends TileMap
 
-var Highlight = preload("res://Highlight.tscn")
+const Highlight = preload("res://Highlight.tscn")
+const Util = preload("res://Util.gd")
 
 var selected_figure = null
 var square_size = cell_size.x
@@ -18,7 +19,7 @@ func _on_figure_on_deselected(figure):
 	selected_figure = null
 	var highlights = get_tree().get_nodes_in_group("Highlight")
 	for h in highlights:
-		remove_child(h)
+		h.queue_free()
 		
 func _on_highlight_selected(highlight):
 	selected_figure.position = highlight.position
@@ -40,15 +41,10 @@ func get_valid_moves(moves, figure):
 		var is_valid_move = true
 		
 		if not figure.can_jump:
-			var current_step = start_position
-			 
-			var direction = (move - start_position).normalized()
-			direction.x = ceil(direction.x)
-			direction.y = ceil(direction.y)
-			
-			while is_valid_move and current_step.distance_to(move) > 0:
-				current_step = current_step + direction
-				is_valid_move = is_cell_valid(current_step)
+			for step in Util.get_steps_between(start_position, move):
+				if not is_cell_valid(step):
+					is_valid_move = false
+					break
 			
 		else:
 			is_valid_move = is_cell_valid(move)
