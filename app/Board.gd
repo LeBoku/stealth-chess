@@ -61,7 +61,7 @@ func is_cell_valid(position):
 	is_valid = tile_type == 0 or tile_type == 1
 	
 	for friend in friends:
-		is_valid = is_valid and position != convert_to_board_position(friend.position)
+		is_valid = is_valid and position != friend.get_board_position()
 	
 	return is_valid
 	

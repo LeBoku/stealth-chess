@@ -1,13 +1,18 @@
 extends Node
+
+const Util = preload("res://Util.gd")
+
 signal on_selected
 signal on_deselected
 
+export (Util.Figures) var type = Util.Figures.Pawn
+export(bool) var can_jump = false
+export(bool) var is_selectable = true
+
 var is_selected = false
-var is_selectable = true
 
 onready var board = get_node("/root/Board")
-onready var moveset = $Moveset
-export(bool) var can_jump = false
+onready var movesets = get_node("/root/Movesets")
 
 func _input(event):
 	if event is InputEventMouseButton and not event.pressed and is_selectable and board.is_same_board_position(self.position, event.position):
@@ -20,7 +25,7 @@ func _input(event):
 			emit_signal("on_deselected" , self)
 	
 func get_possible_moves():
-	return moveset.get_moves(get_board_position())
+	return movesets.get_moves(type, get_board_position())
 
 func get_board_position():
 	return board.convert_to_board_position(self.position);

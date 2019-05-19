@@ -1,5 +1,3 @@
-
-
 enum Figures { Pawn, Rook, Knight, Bishop, King, Queen }
 
 static func get_steps_between(start_position, end_position):

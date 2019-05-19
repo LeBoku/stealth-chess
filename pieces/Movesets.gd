@@ -1,7 +1,6 @@
 extends Node
-const Util = preload("res://Util.gd")
 
-export (Util.Figures) var type = Util.Figures.Pawn
+const Util = preload("res://Util.gd")
 
 var rook_moves = Util.rotate_moves(Util.get_steps_between(Vector2(0,0), Vector2(0,7)))
 var bishop_moves = Util.rotate_moves(Util.get_steps_between(Vector2(0,0), Vector2(7,7)))
@@ -15,7 +14,7 @@ var move_sets = {
 	Util.Figures.Queen: rook_moves + bishop_moves
 }
 
-func get_moves(from):
+func get_moves(type, from):
 	var moves = []
 	
 	for move in move_sets[type]:

@@ -1,11 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://app/tiles.res" type="TileSet" id=1]
 [ext_resource path="res://app/Board.gd" type="Script" id=2]
 [ext_resource path="res://assets/pawn.png" type="Texture" id=3]
 [ext_resource path="res://pieces/Pawn.gd" type="Script" id=4]
-[ext_resource path="res://app/Moveset.gd" type="Script" id=5]
-[ext_resource path="res://assets/knight.png" type="Texture" id=6]
+[ext_resource path="res://assets/knight.png" type="Texture" id=5]
 
 [node name="Board" type="TileMap"]
 tile_set = ExtResource( 1 )
@@ -17,26 +16,18 @@ script = ExtResource( 2 )
 [node name="Pawn" type="Sprite" parent="." groups=[
 "Friend",
 ]]
-editor/display_folded = true
 position = Vector2( 275, 325 )
 texture = ExtResource( 3 )
 script = ExtResource( 4 )
 
-[node name="Moveset" type="Node" parent="Pawn"]
-script = ExtResource( 5 )
-
 [node name="Knight" type="Sprite" parent="." groups=[
 "Friend",
 ]]
-editor/display_folded = true
 position = Vector2( 175, 375 )
-texture = ExtResource( 6 )
+texture = ExtResource( 5 )
 script = ExtResource( 4 )
-can_jump = true
-
-[node name="Moveset" type="Node" parent="Knight"]
-script = ExtResource( 5 )
 type = 2
+can_jump = true
 [connection signal="on_deselected" from="Pawn" to="." method="_on_figure_on_deselected"]
 [connection signal="on_selected" from="Pawn" to="." method="_on_figure_on_selected"]
 [connection signal="on_deselected" from="Knight" to="." method="_on_figure_on_deselected"]
