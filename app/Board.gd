@@ -7,6 +7,9 @@ var selected_figure = null
 var square_size = cell_size.x
 
 func _on_figure_on_selected(figure):
+	if selected_figure != null:
+		clear_highlights()
+
 	selected_figure = figure
 	var moves = figure.get_possible_moves()
 	for move in get_valid_moves(moves, figure):
@@ -16,22 +19,18 @@ func _on_figure_on_selected(figure):
 		h.connect("highlight_selected", self, "_on_highlight_selected")
 		
 func _on_figure_on_deselected(figure):
-	selected_figure = null
-	var highlights = get_tree().get_nodes_in_group("Highlight")
-	for h in highlights:
-		h.queue_free()
+	clear_highlights()
 		
 func _on_highlight_selected(highlight):
 	selected_figure.position = highlight.position
+	
+func clear_highlights():
+	selected_figure.is_selected = false
+	selected_figure = null
 
-func convert_to_position(board_position):
-	return Vector2(board_position.x * square_size + square_size/2, board_position.y * square_size + square_size/2)
-
-func convert_to_board_position(position):
-	return Vector2(floor(position.x / square_size), floor(position.y / square_size))
-
-func is_same_board_position(a, b):
-	return convert_to_board_position(a) == convert_to_board_position(b)
+	var highlights = get_tree().get_nodes_in_group("Highlight")
+	for h in highlights:
+		h.queue_free()
 
 func get_valid_moves(moves, figure):
 	var valid_moves = []
@@ -55,5 +54,22 @@ func get_valid_moves(moves, figure):
 	return valid_moves
 	
 func is_cell_valid(position):
+	var is_valid = true
+	var friends = get_tree().get_nodes_in_group("Friend")
 	var tile_type = get_cell(position.x, position.y)
-	return tile_type == 0 or tile_type == 1
+	
+	is_valid = tile_type == 0 or tile_type == 1
+	
+	for friend in friends:
+		is_valid = is_valid and position != convert_to_board_position(friend.position)
+	
+	return is_valid
+	
+func convert_to_position(board_position):
+	return Vector2(board_position.x * square_size + square_size/2, board_position.y * square_size + square_size/2)
+
+func convert_to_board_position(position):
+	return Vector2(floor(position.x / square_size), floor(position.y / square_size))
+
+func is_same_board_position(a, b):
+	return convert_to_board_position(a) == convert_to_board_position(b)

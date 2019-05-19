@@ -7,7 +7,7 @@ var is_selectable = true
 
 onready var board = get_node("/root/Board")
 onready var moveset = $Moveset
-var can_jump = false
+export(bool) var can_jump = false
 
 func _input(event):
 	if event is InputEventMouseButton and not event.pressed and is_selectable and board.is_same_board_position(self.position, event.position):
