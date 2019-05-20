@@ -1,4 +1,4 @@
-extends Node
+extends Sprite
 
 const Util = preload("res://Util.gd")
 
@@ -15,7 +15,7 @@ onready var board = get_node("/root/Board")
 onready var movesets = get_node("/root/Movesets")
 
 func _input(event):
-	if event is InputEventMouseButton and not event.pressed and is_selectable and board.is_same_board_position(self.position, event.position):
+	if event is InputEventMouseButton and not event.pressed and is_selectable and is_over_piece(get_global_mouse_position()):
 		if not is_selected:
 			is_selected = true
 			emit_signal("on_selected" , self)
