@@ -8,5 +8,4 @@ func _process(delta):
 
 	if not margins.has_point(mouse):
 		var direction = mouse - ((margins.position + margins.end) / 2) 
-		print(direction)
 		self.position += direction.clamped(200) * delta

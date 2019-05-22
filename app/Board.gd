@@ -18,7 +18,7 @@ func _on_figure_on_selected(figure):
 		h.position = convert_to_position(move)
 		h.connect("highlight_selected", self, "_on_highlight_selected")
 		
-func _on_figure_on_deselected(figure):
+func _on_figure_on_deselected():
 	clear_highlights()
 		
 func _on_highlight_selected(highlight):
