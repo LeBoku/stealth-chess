@@ -1,15 +1,15 @@
 [gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://app/Manger.gd" type="Script" id=1]
-[ext_resource path="res://app/HighlightManager.gd" type="Script" id=2]
+[ext_resource path="res://app/highlight/HighlightManager.gd" type="Script" id=2]
 [ext_resource path="res://app/Camera.gd" type="Script" id=3]
-[ext_resource path="res://app/tiles.res" type="TileSet" id=4]
+[ext_resource path="res://app/tileset/tiles.res" type="TileSet" id=4]
 [ext_resource path="res://app/Board.gd" type="Script" id=5]
 [ext_resource path="res://assets/pawn.png" type="Texture" id=6]
-[ext_resource path="res://pieces/Piece.gd" type="Script" id=7]
+[ext_resource path="res://app/pieces/Piece.gd" type="Script" id=7]
 [ext_resource path="res://assets/knight.png" type="Texture" id=8]
 [ext_resource path="res://assets/rook.png" type="Texture" id=9]
-[ext_resource path="res://pieces/Patrol.gd" type="Script" id=10]
+[ext_resource path="res://app/pieces/Patrol.gd" type="Script" id=10]
 
 [sub_resource type="Curve2D" id=1]
 bake_interval = 50.0

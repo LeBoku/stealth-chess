@@ -21,7 +21,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Movesets="*res://pieces/Movesets.gd"
+Movesets="*res://app/pieces/Movesets.gd"
 
 [rendering]
 

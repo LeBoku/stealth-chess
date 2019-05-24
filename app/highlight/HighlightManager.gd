@@ -1,6 +1,6 @@
 extends Node
 
-const Highlight = preload("res://Highlight.tscn")
+const Highlight = preload("res://app/highlight/Highlight.tscn")
 
 onready var manager = get_node("/root/Manager")
 onready var board = manager.get_board()
