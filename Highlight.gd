@@ -2,7 +2,8 @@ extends Sprite
 
 signal highlight_selected
 
-onready var board = get_node("/root/Board")
+onready var manager = get_node("/root/Manager")
+onready var board = manager.get_board()
 
 func _ready():
 	add_to_group("Highlight")

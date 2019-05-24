@@ -11,7 +11,9 @@ export(bool) var is_selectable = true
 
 var is_selected = false
 
-onready var board = get_node("/root/Board")
+onready var manager = get_node("/root/Manager")
+onready var board = manager.get_board()
+
 onready var movesets = get_node("/root/Movesets")
 
 func _input(event):

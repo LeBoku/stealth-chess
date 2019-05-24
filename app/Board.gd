@@ -1,36 +1,7 @@
 extends TileMap
 
-const Highlight = preload("res://Highlight.tscn")
 const Util = preload("res://Util.gd")
-
-var selected_figure = null
 var square_size = cell_size.x
-
-func _on_figure_on_selected(figure):
-	if selected_figure != null:
-		clear_highlights()
-
-	selected_figure = figure
-	var moves = figure.get_possible_moves()
-	for move in get_valid_moves(moves, figure):
-		var h = Highlight.instance();
-		add_child(h)
-		h.position = convert_to_position(move)
-		h.connect("highlight_selected", self, "_on_highlight_selected")
-		
-func _on_figure_on_deselected():
-	clear_highlights()
-		
-func _on_highlight_selected(highlight):
-	selected_figure.position = highlight.position
-	
-func clear_highlights():
-	selected_figure.is_selected = false
-	selected_figure = null
-
-	var highlights = get_tree().get_nodes_in_group("Highlight")
-	for h in highlights:
-		h.queue_free()
 
 func get_valid_moves(moves, figure):
 	var valid_moves = []
