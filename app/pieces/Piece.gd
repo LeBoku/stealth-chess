@@ -1,6 +1,6 @@
 extends Sprite
 
-const Util = preload("res://Util.gd")
+const Util = preload("res://app/Util.gd")
 
 signal on_selected
 signal on_deselected
@@ -13,6 +13,7 @@ var is_selected = false
 
 onready var manager = get_node("/root/Manager")
 onready var board = manager.get_board()
+onready var is_friend = is_in_group("Friend")
 
 onready var movesets = get_node("/root/Movesets")
 

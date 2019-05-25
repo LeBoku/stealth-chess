@@ -1,6 +1,6 @@
 extends Node
 
-const Util = preload("res://Util.gd")
+const Util = preload("res://app/Util.gd")
 
 var rook_moves = Util.rotate_moves(Util.get_steps_between(Vector2(0,0), Vector2(0,7)))
 var bishop_moves = Util.rotate_moves(Util.get_steps_between(Vector2(0,0), Vector2(7,7)))

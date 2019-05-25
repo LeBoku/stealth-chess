@@ -1,4 +1,5 @@
 enum Figures { Pawn, Rook, Knight, Bishop, King, Queen }
+enum CellContent { Empty, Obstacle }
 
 static func get_steps_between(start_position, end_position):
 	var steps = []

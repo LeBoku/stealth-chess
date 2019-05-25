@@ -1,6 +1,6 @@
 extends TileMap
 
-const Util = preload("res://Util.gd")
+const Util = preload("res://app/Util.gd")
 var square_size = cell_size.x
 
 func get_valid_moves(moves, figure):
@@ -25,16 +25,32 @@ func get_valid_moves(moves, figure):
 	return valid_moves
 	
 func is_cell_valid(position):
-	var is_valid = true
-	var friends = get_tree().get_nodes_in_group("Friend")
+	var cell_content = get_cell_content(position)
+	var type = cell_content[0]
+	var piece = cell_content[1]
+	
+	return type == Util.CellContent.Empty and (piece == null or not piece.is_friend)
+	
+func get_cell_content(position):
+	var content_type = Util.CellContent.Empty
+	var piece: Node = null
+	
 	var tile_type = get_cell(position.x, position.y)
+
+	if not(tile_type == 0 or tile_type == 1):
+		content_type = Util.CellContent.Obstacle
+	else:
+		piece = get_cell_piece(position)
 	
-	is_valid = tile_type == 0 or tile_type == 1
+	return [content_type, piece]
 	
-	for friend in friends:
-		is_valid = is_valid and position != friend.get_board_position()
+func get_cell_piece(position):
+	for piece in get_all_pieces():
+		if position == piece.get_board_position():
+			return piece
 	
-	return is_valid
+func get_all_pieces():
+	return get_tree().get_nodes_in_group("Friend") + get_tree().get_nodes_in_group("Enemy") 
 	
 func convert_to_position(board_position):
 	return Vector2(board_position.x * square_size + square_size/2, board_position.y * square_size + square_size/2)

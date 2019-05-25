@@ -1,8 +1,9 @@
 extends Node2D
 
+const Board = preload("res://app/Board.gd")
 const AI = preload("res://app/pieces/AI.gd")
 
-onready var board = get_board()
+onready var board: Board = get_board()
 onready var highlight_manager = $HighlightManager
 
 var selected_figure = null
@@ -25,7 +26,14 @@ func _on_figure_on_deselected(figure):
 	deselect_figure()
 
 func _on_highlight_selected(highlight):
+	var cell_content = board.get_cell_content(board.convert_to_board_position(highlight.position))
+	
+	if cell_content[1] != null:
+		cell_content[1].queue_free()
+	
 	selected_figure.position = highlight.position
+	
+	
 	process_enemy_turn()
 
 func deselect_figure():
