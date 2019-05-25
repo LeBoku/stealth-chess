@@ -9,7 +9,7 @@
 [ext_resource path="res://app/pieces/Piece.gd" type="Script" id=7]
 [ext_resource path="res://assets/knight.png" type="Texture" id=8]
 [ext_resource path="res://assets/rook.png" type="Texture" id=9]
-[ext_resource path="res://app/pieces/Patrol.gd" type="Script" id=10]
+[ext_resource path="res://app/pieces/PatrolAI.gd" type="Script" id=10]
 
 [sub_resource type="Curve2D" id=1]
 bake_interval = 50.0
@@ -48,14 +48,14 @@ script = ExtResource( 5 )
 [node name="Pawn" type="Sprite" parent="Board" groups=[
 "Friend",
 ]]
-position = Vector2( 175, 525 )
+position = Vector2( 175, 425 )
 texture = ExtResource( 6 )
 script = ExtResource( 7 )
 
 [node name="Knight" type="Sprite" parent="Board" groups=[
 "Friend",
 ]]
-position = Vector2( 275, 525 )
+position = Vector2( 275, 425 )
 texture = ExtResource( 8 )
 script = ExtResource( 7 )
 type = 2
@@ -64,7 +64,6 @@ can_jump = true
 [node name="E_Rook" type="Sprite" parent="Board" groups=[
 "Enemy",
 ]]
-editor/display_folded = true
 position = Vector2( 175, -75 )
 rotation = -0.000728711
 texture = ExtResource( 9 )
@@ -72,7 +71,7 @@ script = ExtResource( 7 )
 type = 1
 is_selectable = false
 
-[node name="Patrol" type="Node" parent="Board/E_Rook"]
+[node name="PatrolAI" type="Node" parent="Board/E_Rook"]
 script = ExtResource( 10 )
 patrol_path = NodePath("../Rook_Patrol")
 

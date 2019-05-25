@@ -1,4 +1,4 @@
-extends Node
+extends "AI.gd"
 
 export(NodePath) var patrol_path
 export var backward = false
@@ -11,6 +11,9 @@ var current_step = 0
 func _ready():
 	var curve = get_node(patrol_path).get_curve()
 	steps = curve.get_baked_points()
+
+func process_turn():
+	move_along_patrol_path()
 
 func move_along_patrol_path():
 		current_step = get_next_step()
