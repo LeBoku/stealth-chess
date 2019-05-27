@@ -13,9 +13,7 @@ func _ready():
 
 func process_turn():
 	.process_turn()
-
-	if active:
-		move_along_patrol_path()
+	move_along_patrol_path()
 
 func move_along_patrol_path():
 		current_step = get_next_step()
