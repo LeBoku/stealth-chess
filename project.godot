@@ -23,6 +23,13 @@ config/icon="res://icon.png"
 
 Movesets="*res://app/pieces/Movesets.gd"
 
+[display]
+
+window/size/width=1920
+window/size/height=1080
+window/size/resizable=false
+window/size/always_on_top=true
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"

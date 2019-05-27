@@ -28,7 +28,7 @@ func _input(event):
 			emit_signal("on_deselected" , self)
 	
 func get_possible_moves():
-	return movesets.get_moves(type, get_board_position())
+	return movesets.get_moves(type, get_board_position(), board)
 
 func get_board_position():
 	return board.convert_to_board_position(self.position);

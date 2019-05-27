@@ -33,7 +33,6 @@ func _on_highlight_selected(highlight):
 	
 	selected_figure.position = highlight.position
 	
-	
 	process_enemy_turn()
 
 func deselect_figure():
