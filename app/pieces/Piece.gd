@@ -1,21 +1,30 @@
-extends Sprite
+extends Node2D
 
 const Util = preload("res://app/Util.gd")
 
 signal on_selected
 signal on_deselected
 
-export (Util.Figures) var type = Util.Figures.Pawn
-export(bool) var can_jump = false
-export(bool) var is_selectable = true
-
-var is_selected = false
+export(Util.Figures) var type = Util.Figures.Pawn
+export(bool) var is_friend = true
 
 onready var manager = get_node("/root/Manager")
-onready var board = manager.get_board()
-onready var is_friend = is_in_group("Friend")
-
 onready var movesets = get_node("/root/Movesets")
+onready var display = $Display
+
+onready var board = manager.get_board()
+
+var can_jump: bool = false
+var is_selected: bool = false
+var is_selectable: bool = true
+
+func _ready():
+	can_jump = type == Util.Figures.Knight
+	
+	if is_friend:
+		add_to_group("Friend")
+	else:
+		add_to_group("Enemy")
 
 func _input(event):
 	if event is InputEventMouseButton and not event.pressed and is_selectable and is_over_piece(get_global_mouse_position()):

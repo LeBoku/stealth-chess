@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/pawn.png" type="Texture" id=1]
+[ext_resource path="res://app/pieces/Piece.gd" type="Script" id=2]
+
+[node name="Enemy_Piece" type="Sprite" groups=[
+"Enemies",
+]]
+texture = ExtResource( 1 )
+script = ExtResource( 2 )

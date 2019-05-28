@@ -1,7 +1,7 @@
 extends Node2D
 
 const Board = preload("res://app/Board.gd")
-const AI = preload("res://app/pieces/AI.gd")
+const AI = preload("res://app/enemies/AI.gd")
 
 const PLAYER_MOVE_HIGHLIGHT = "PLAYER_MOVE"
 const ENEMY_MOVE_HIGHLIGHT = "ENEMY_MOVE"
