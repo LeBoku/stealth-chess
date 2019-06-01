@@ -1,12 +1,13 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://app/Manger.gd" type="Script" id=1]
 [ext_resource path="res://app/highlight/HighlightManager.gd" type="Script" id=2]
 [ext_resource path="res://app/Camera.gd" type="Script" id=3]
 [ext_resource path="res://app/tileset/tiles.res" type="TileSet" id=4]
 [ext_resource path="res://app/Board.gd" type="Script" id=5]
-[ext_resource path="res://app/enemies/Piece.tscn" type="PackedScene" id=6]
-[ext_resource path="res://app/enemies/PatrolAI.gd" type="Script" id=7]
+[ext_resource path="res://app/pieces/Piece.tscn" type="PackedScene" id=6]
+[ext_resource path="res://app/enemies/Enemy.tscn" type="PackedScene" id=7]
+[ext_resource path="res://app/enemies/PatrolAI.gd" type="Script" id=8]
 
 [sub_resource type="Curve2D" id=1]
 bake_interval = 50.0
@@ -45,21 +46,18 @@ script = ExtResource( 5 )
 [node name="Pawn" parent="Board" instance=ExtResource( 6 )]
 position = Vector2( 175, 126 )
 
-[node name="E_Rook2" parent="Board" instance=ExtResource( 6 )]
-editor/display_folded = true
-position = Vector2( 176, -73 )
-type = 1
-is_friend = false
-
-[node name="Rook_Patrol" type="Path2D" parent="Board/E_Rook2"]
-position = Vector2( -176, 76 )
-curve = SubResource( 1 )
-
-[node name="PatrolAI" type="Node" parent="Board/E_Rook2"]
-script = ExtResource( 7 )
-patrol_path = NodePath("../Rook_Patrol")
-speed = 2
-
 [node name="Knight" parent="Board" instance=ExtResource( 6 )]
 position = Vector2( 175, 24 )
 type = 2
+
+[node name="E_Rook" parent="Board" instance=ExtResource( 7 )]
+position = Vector2( 225, -75 )
+type = 1
+
+[node name="Rook_Patrol" type="Path2D" parent="Board/E_Rook"]
+position = Vector2( -175, 75 )
+curve = SubResource( 1 )
+
+[node name="PatrolAI" type="Node" parent="Board/E_Rook"]
+script = ExtResource( 8 )
+patrol_path = NodePath("../../E_Rook/Rook_Patrol")

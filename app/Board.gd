@@ -50,7 +50,7 @@ func get_cell_piece(position):
 			return piece
 	
 func get_all_pieces():
-	return get_tree().get_nodes_in_group("Friend") + get_tree().get_nodes_in_group("Enemy") 
+	return get_tree().get_nodes_in_group("Piece")
 	
 func convert_to_position(board_position):
 	return Vector2(board_position.x * square_size + square_size/2, board_position.y * square_size + square_size/2)

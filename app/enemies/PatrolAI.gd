@@ -2,7 +2,6 @@ extends "AI.gd"
 
 export(NodePath) var patrol_path
 export var backward = false
-export var speed = 1
 
 onready var parent = get_parent()
 
@@ -26,6 +25,6 @@ func initialize_patrol():
 	
 func get_next_step():
 	if backward:
-		return fmod(current_step - speed, -(steps.size() - 2))
+		return fmod(current_step - 1, -(steps.size() - 2))
 	else:
-		return fmod(current_step + speed, steps.size() - 2)
+		return fmod(current_step + 1, steps.size() - 2)

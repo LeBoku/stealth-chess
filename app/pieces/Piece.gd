@@ -6,7 +6,7 @@ signal on_selected
 signal on_deselected
 
 export(Util.Figures) var type = Util.Figures.Pawn
-export(bool) var is_friend = true
+var is_friend = true
 
 onready var manager = get_node("/root/Manager")
 onready var movesets = get_node("/root/Movesets")
@@ -20,11 +20,10 @@ var is_selectable: bool = true
 
 func _ready():
 	can_jump = type == Util.Figures.Knight
+	add_to_group("Piece")
 	
 	if is_friend:
 		add_to_group("Friend")
-	else:
-		add_to_group("Enemy")
 
 func _input(event):
 	if event is InputEventMouseButton and not event.pressed and is_selectable and is_over_piece(get_global_mouse_position()):

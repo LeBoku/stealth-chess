@@ -4,6 +4,7 @@ extends Node
 const Util = preload("res://app/Util.gd")
 
 onready var piece = get_parent()
+onready var enemy = piece.get_parent()
 onready var display = $"../Display"
 
 const sprites = {
@@ -17,4 +18,7 @@ const sprites = {
 
 func _process(delta):
 	if display != null and piece != null:
+		if enemy and enemy.get("type") != null:
+			piece.type = enemy.type
+			
 		display.texture = sprites[piece.type]
