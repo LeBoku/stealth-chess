@@ -1,17 +1,12 @@
-extends "AI.gd"
-
-const Enemy = preload("res://app/enemies/Enemy.gd")
+extends "Behaviour.gd"
 
 export(NodePath) var patrol_path
 export var backward = false
 
-onready var parent:Enemy = get_parent()
+onready var parent = get_parent()
 
 var steps: PoolVector2Array
 var current_step = 0
-
-func _ready():
-	initialize_patrol()
 
 func process_turn():
 	.process_turn()
@@ -24,12 +19,14 @@ func move_along_patrol_path():
 	
 func look_at_next_position():
 	var next_step = get_next_step_index()
-	var view_direction = steps[next_step] - parent.position
-	parent.view_indicator.rotation = view_direction.angle()
+	parent.view_cone.look_at(steps[next_step])
 	
-func initialize_patrol():
+func initialize():
+	.initialize();
 	var curve = get_node(patrol_path).get_curve()
 	steps = curve.get_baked_points()
+	
+	look_at_next_position()
 	
 func get_next_step_index():
 	if backward:
