@@ -4,6 +4,7 @@ const Util = preload("res://app/Util.gd")
 
 signal on_selected
 signal on_deselected
+signal on_eaten
 
 export(Util.Figures) var type = Util.Figures.Pawn
 var is_friend = true
@@ -35,11 +36,15 @@ func _input(event):
 			is_selected = false
 			emit_signal("on_deselected" , self)
 	
+func get_eaten():
+	emit_signal("on_eaten")
+	queue_free()
+	
 func get_possible_moves():
 	return movesets.get_moves(type, get_board_position(), board)
 
 func get_board_position():
-	return board.convert_to_board_position(self.position);
+	return board.convert_to_board_position(self.global_position);
 
 func is_over_piece(position):
 	return get_board_position() == board.convert_to_board_position(position)

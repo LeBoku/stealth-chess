@@ -54,10 +54,10 @@ type = 2
 position = Vector2( 225, -75 )
 type = 1
 
-[node name="Rook_Patrol" type="Path2D" parent="Board/E_Rook"]
+[node name="RookPatrol" type="Path2D" parent="Board/E_Rook"]
 position = Vector2( -175, 75 )
 curve = SubResource( 1 )
 
 [node name="PatrolAI" type="Node" parent="Board/E_Rook"]
 script = ExtResource( 8 )
-patrol_path = NodePath("../../E_Rook/Rook_Patrol")
+patrol_path = NodePath("../RookPatrol")

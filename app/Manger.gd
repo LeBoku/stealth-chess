@@ -1,7 +1,6 @@
 extends Node2D
 
 const Board = preload("res://app/Board.gd")
-const AI = preload("res://app/enemies/AI.gd")
 
 const PLAYER_MOVE_HIGHLIGHT = "PLAYER_MOVE"
 const ENEMY_MOVE_HIGHLIGHT = "ENEMY_MOVE"
@@ -32,7 +31,7 @@ func _on_highlight_selected(highlight):
 	var cell_content = board.get_cell_content(board.convert_to_board_position(highlight.position))
 	
 	if cell_content[1] != null:
-		cell_content[1].queue_free()
+		cell_content[1].get_eaten()
 	
 	selected_figure.position = highlight.position
 	
@@ -48,9 +47,7 @@ func process_enemy_turn():
 	get_tree().set_group_flags(get_tree().GROUP_CALL_DEFAULT, "Friend", "is_selectable", false)
 	
 	for enemy in get_tree().get_nodes_in_group("Enemy"):
-		for node in enemy.get_children():
-			if node is AI and node.active:
-				node.process_turn()
+		enemy.process_turn()
 	
 	get_tree().set_group_flags(get_tree().GROUP_CALL_DEFAULT, "Friend", "is_selectable", true)
 
