@@ -8,6 +8,9 @@ onready var piece = $Piece
 onready var view_cone = $ViewCone
 onready var attention_state_indicator = $AttentionState
 
+onready var pathfinder = get_node("/root/Pathfinder")
+
+
 var attention_state = Util.AttentionStates.None setget set_attention_state
 
 var suspicious_sprite = preload("res://assets/attention_suspicious.png")
@@ -30,6 +33,12 @@ func process_turn():
 	if len(detected) > 0:
 		view_cone.look_at_position(detected[0].position)
 		self.attention_state = Util.AttentionStates.Alerted
+		
+		var path = pathfinder.get_shortest_path(piece.get_board_position(), detected[0].get_board_position(), type)
+		
+		print(piece.get_board_position(), " --> ", detected[0].get_board_position())
+		print(path)
+		
 	else:
 		if attention_state == Util.AttentionStates.Alerted:
 			self.attention_state = Util.AttentionStates.Suspicious

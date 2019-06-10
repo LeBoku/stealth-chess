@@ -22,6 +22,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Movesets="*res://app/pieces/Movesets.gd"
+Pathfinder="*res://app/Pathfinder.gd"
 
 [display]
 
