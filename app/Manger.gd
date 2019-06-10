@@ -20,8 +20,8 @@ func _on_figure_on_selected(figure):
 		deselect_figure()
 
 	selected_figure = figure
-	var moves = figure.get_possible_moves()
-	for move in board.get_valid_moves(moves, figure):
+	
+	for move in figure.get_possible_moves():
 		highlight_manager.add_highlight(move, PLAYER_MOVE_HIGHLIGHT)
 		
 func _on_figure_on_deselected(figure):

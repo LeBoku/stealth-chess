@@ -19,13 +19,11 @@ func get_shortest_path(from: Vector2, to: Vector2, figure_type, _happend_steps =
 		
 		if is_shorter_path(current_path, shortest_path):
 			if move == to:
-				return current_path
+				shortest_path =  current_path
 			else:
-				var path = get_shortest_path(move, to, figure_type, current_path, shortest_path)
-				if path:
-					return path
+				shortest_path = get_shortest_path(move, to, figure_type, current_path, shortest_path)
 
-	return null
+	return shortest_path
 
 func is_shorter_path(path, shortest_path):
 	if shortest_path == null:

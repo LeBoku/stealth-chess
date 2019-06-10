@@ -19,13 +19,36 @@ func get_moves(type, from: Vector2, board: Board):
 	var moves = []
 	
 	for move in move_sets[type]:
-		moves.append(move + from)
-		
+		move += from
+		if is_move_valid(from, move, type, board):
+			moves.append(move)
+
 	if type == Util.Figures.Pawn:
 		moves += get_special_pawn_moves(from, board)
 	
 	return moves
+
+func is_move_valid(from, move, type, board):
+	var is_valid_move = true
 	
+	if not type == Util.Figures.Knight:
+		for step in Util.get_steps_between(from, move):
+			if not is_cell_valid(step, board):
+				is_valid_move = false
+				break
+		
+	else:
+		is_valid_move = is_cell_valid(move, board)
+	
+	return is_valid_move
+
+func is_cell_valid(position, board):
+	var cell_content = board.get_cell_content(position)
+	var type = cell_content[0]
+	var piece = cell_content[1]
+	
+	return type == Util.CellContent.Empty
+
 func get_special_pawn_moves(from: Vector2, board: Board):
 	var specials = []
 	

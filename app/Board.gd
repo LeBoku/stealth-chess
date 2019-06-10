@@ -3,34 +3,7 @@ extends TileMap
 const Util = preload("res://app/Util.gd")
 var square_size = cell_size.x
 
-func get_valid_moves(moves, figure):
-	var valid_moves = []
-	var start_position = figure.get_board_position()
-	
-	for move in moves:
-		var is_valid_move = true
-		
-		if not figure.can_jump:
-			for step in Util.get_steps_between(start_position, move):
-				if not is_cell_valid(step):
-					is_valid_move = false
-					break
-			
-		else:
-			is_valid_move = is_cell_valid(move)
-			
-		if is_valid_move:
-			valid_moves.append(move)
-			
-	return valid_moves
-	
-func is_cell_valid(position):
-	var cell_content = get_cell_content(position)
-	var type = cell_content[0]
-	var piece = cell_content[1]
-	
-	return type == Util.CellContent.Empty and (piece == null or not piece.is_friend)
-	
+
 func get_cell_content(position):
 	var content_type = Util.CellContent.Empty
 	var piece: Node = null

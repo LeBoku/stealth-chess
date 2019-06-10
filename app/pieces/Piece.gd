@@ -15,12 +15,10 @@ onready var display = $Display
 
 onready var board = manager.get_board()
 
-var can_jump: bool = false
 var is_selected: bool = false
 var is_selectable: bool = true
 
 func _ready():
-	can_jump = type == Util.Figures.Knight
 	add_to_group("Piece")
 	
 	if is_friend:
