@@ -14,3 +14,5 @@ texture = ExtResource( 2 )
 script = ExtResource( 3 )
 
 [node name="Piece" parent="." instance=ExtResource( 4 )]
+
+[node name="AttentionState" type="Sprite" parent="."]
