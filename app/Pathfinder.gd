@@ -9,53 +9,43 @@ onready var board = manager.get_board()
 var sorter = ByDistanceSorter.new()
 
 func get_shortest_path(from: Vector2, to: Vector2, figure_type, _happend_steps = [], shortest_path = null):
-	var moves = movesets.get_moves(figure_type, from, board)
-	moves = remove_tried_steps(_happend_steps, moves)
+	var moves = movesets.get_moves(figure_type, from, board, 1)
+	moves = remove_tried_steps(_happend_steps, shortest_path, moves)
 	moves = sorter.sort_by_distance(moves, to)
 	
 	for move in moves:
 		var current_path = _happend_steps.duplicate()
 		current_path.append(move)
 		
+		if shortest_path != null:
+			if move in shortest_path:
+				var i_in_shortest = shortest_path.find(move)
+				var i_in_current = current_path.find(move)
+	
+				if i_in_shortest > i_in_current:
+					shortest_path = current_path + Util.slice(shortest_path, i_in_shortest)
+				else:
+					break
+		
+			if (to - move).length() > len(shortest_path):
+				break
+		
 		if is_shorter_path(current_path, shortest_path):
 			if move == to:
-				shortest_path =  current_path
+				shortest_path = current_path
 			else:
 				shortest_path = get_shortest_path(move, to, figure_type, current_path, shortest_path)
 
 	return shortest_path
 
 func is_shorter_path(path, shortest_path):
-	if shortest_path == null:
-		return true
-	else: 
-		var length_diff = get_path_length(shortest_path) - get_path_length(path)
-		return length_diff > 0 or (length_diff == 0 and shortest_path.size() > path.size())
+	return shortest_path == null or len(shortest_path) - len(path) > 0
 
-func get_path_length(path):
-	var length = 0
-	var previous_step = null
-	
-	for step in path:
-		if previous_step != null:
-			length += (previous_step - step).length()
-		
-		previous_step = step
-		
-	return length
-
-func remove_tried_steps(happend_steps, moves):
+func remove_tried_steps(happend_steps, shortest_path, moves):
 	var valid_moves = []
 	
 	for move in moves:
-		var valid = true
-		
-		for happend in happend_steps:
-			if happend == move:
-				valid = false
-				break
-	
-		if valid:
+		if not move in happend_steps:
 			valid_moves.append(move)
 			
 	return valid_moves

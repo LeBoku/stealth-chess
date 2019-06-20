@@ -3,44 +3,39 @@ extends Node
 const Util = preload("res://app/Util.gd")
 const Board = preload("res://app/Board.gd")
 
-var rook_moves = Util.rotate_moves(Util.get_steps_between(Vector2(0,0), Vector2(0,7)))
-var bishop_moves = Util.rotate_moves(Util.get_steps_between(Vector2(0,0), Vector2(7,7)))
+var straight_moves = Util.rotate_moves([Vector2(0,1)])
+var diagonal_moves = Util.rotate_moves([Vector2(1,1)])
+var omnidirectional_moves = straight_moves + diagonal_moves
 
 var move_sets = {
-	Util.Figures.Pawn: [Vector2(0, -1), Vector2(0, -2)],
-	Util.Figures.Rook: rook_moves,
+	Util.Figures.Pawn: [Vector2(0, -1)],
+	Util.Figures.Rook: straight_moves,
 	Util.Figures.Knight: Util.rotate_moves([Vector2(-1, 2), Vector2(1, 2)]),
-	Util.Figures.Bishop: bishop_moves,
-	Util.Figures.King: Util.rotate_moves([Vector2(1,1), Vector2(0,1)]),
-	Util.Figures.Queen: rook_moves + bishop_moves
+	Util.Figures.Bishop: diagonal_moves,
+	Util.Figures.King: omnidirectional_moves,
+	Util.Figures.Queen: omnidirectional_moves
 }
 
-func get_moves(type, from: Vector2, board: Board):
+func get_moves(type, from: Vector2, board: Board, max_distance: int = 8):
 	var moves = []
 	
+	if type == Util.Figures.Pawn:
+		max_distance = min(max_distance, 2)
+	elif type == Util.Figures.Knight or type == Util.Figures.King:
+		max_distance = min(max_distance, 1)
+	
 	for move in move_sets[type]:
-		move += from
-		if is_move_valid(from, move, type, board):
-			moves.append(move)
+		for distance in range(0, max_distance):
+			var step = move * (distance + 1) + from
+			if is_cell_valid(step, board):
+				moves.append(step)
+			else:
+				break
 
 	if type == Util.Figures.Pawn:
 		moves += get_special_pawn_moves(from, board)
 	
 	return moves
-
-func is_move_valid(from, move, type, board):
-	var is_valid_move = true
-	
-	if not type == Util.Figures.Knight:
-		for step in Util.get_steps_between(from, move):
-			if not is_cell_valid(step, board):
-				is_valid_move = false
-				break
-		
-	else:
-		is_valid_move = is_cell_valid(move, board)
-	
-	return is_valid_move
 
 func is_cell_valid(position, board):
 	var cell_content = board.get_cell_content(position)
