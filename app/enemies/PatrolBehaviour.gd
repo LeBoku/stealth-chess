@@ -4,6 +4,7 @@ export(NodePath) var patrol_path
 export var backward = false
 
 onready var parent = get_parent()
+onready var piece = parent.get_parent()
 
 var steps: PoolVector2Array
 var current_step = 0
@@ -15,7 +16,7 @@ func process_turn():
 
 func move_along_patrol_path():
 	current_step = get_next_step_index()
-	parent.position = steps[current_step]
+	piece.position = steps[current_step]
 	
 func look_at_next_position():
 	var next_step = get_next_step_index()

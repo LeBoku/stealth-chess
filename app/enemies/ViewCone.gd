@@ -3,7 +3,7 @@ extends Sprite
 onready var manager = get_node("/root/Manager")
 onready var board = manager.get_board()
 
-onready var parent = get_parent()
+onready var piece = get_parent().get_parent()
 
 func detect_things():
 	var detected = []
@@ -14,12 +14,12 @@ func detect_things():
 	return detected
 
 func look_at_position(position):
-	var view_direction = position - parent.position
+	var view_direction = position - piece.position
 	rotation = view_direction.angle()
 
 func is_in_view(thing):
-	var direction_to_thing = (thing.position - parent.position).normalized() 
-	var view_direction  = parent.position.rotated(rotation).normalized();
+	var direction_to_thing = (thing.position - piece.position).normalized() 
+	var view_direction  = piece.position.rotated(rotation).normalized();
 	
 	print(view_direction.dot(direction_to_thing))
 	return view_direction.dot(direction_to_thing) > 0

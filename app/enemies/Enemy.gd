@@ -4,7 +4,7 @@ const Behaviour = preload("res://app/enemies/Behaviour.gd")
 
 export(Util.Figures) var type = Util.Figures.Pawn
 
-onready var piece = $Piece
+onready var piece = get_parent()
 onready var view_cone = $ViewCone
 onready var attention_state_indicator = $AttentionState
 
@@ -18,9 +18,7 @@ var alerted_sprite = preload("res://assets/attention_alerted.png")
 
 func _ready():
 	add_to_group("Enemy")
-	
 	piece.is_friend = false
-	piece.type = type
 	
 	piece.connect("on_eaten", self, "queue_free")
 		
