@@ -26,14 +26,26 @@ func _ready():
 
 func _input(event):
 	if event is InputEventMouseButton and not event.pressed and is_selectable and is_over_piece(get_global_mouse_position()):
-		if not is_selected:
-			is_selected = true
-			emit_signal("on_selected" , self)
-
-		else:
-			is_selected = false
-			emit_signal("on_deselected" , self)
+		set_selected( not is_selected)
 	
+func set_selected(state):
+	is_selected = state
+
+	if state:
+		manager.set_selected_figure(self)
+		emit_signal("on_selected" , self)
+
+	else:
+		emit_signal("on_deselected" , self)
+
+func move_to(position):
+	var cell_content = board.get_cell_content(board.convert_to_board_position(position))
+	
+	if cell_content[1] != null:
+		cell_content[1].get_eaten()
+	
+	self.position = position
+
 func get_eaten():
 	emit_signal("on_eaten")
 	queue_free()

@@ -11,7 +11,7 @@ func add_highlight(cell: Vector2, type = "Undefined"):
 	h.add_to_group(type)
 	
 	board.add_child(h)
-	h.connect("highlight_selected", manager, "_on_highlight_selected")
+	return h
 	
 func clear_highlights(type = "Undefined"):
 	var highlights = get_tree().get_nodes_in_group(type)
