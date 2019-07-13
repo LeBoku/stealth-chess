@@ -19,6 +19,7 @@ func _ready():
 	piece.is_friend = false
 	
 	piece.connect("on_eaten", self, "queue_free")
+	piece.connect("on_turn", self, "process_turn")
 		
 	for behaviour in get_behaviour_nodes():
 		behaviour.initialize()
@@ -30,10 +31,7 @@ func process_turn():
 		view_cone.look_at_position(detected[0].position)
 		self.attention_state = Util.AttentionStates.Alerted
 		
-		var path = pathfinder.get_shortest_path(piece.get_board_position(), detected[0].get_board_position(), piece.type)
-		
-		print(piece.get_board_position(), " --> ", detected[0].get_board_position())
-		print(path)
+		piece.set_planned_path_to(detected[0].position)
 		
 	else:
 		if attention_state == Util.AttentionStates.Alerted:
