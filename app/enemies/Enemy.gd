@@ -8,7 +8,6 @@ onready var attention_state_indicator = $AttentionState
 
 onready var pathfinder = get_node("/root/Pathfinder")
 
-
 var attention_state = Util.AttentionStates.None setget set_attention_state
 
 var suspicious_sprite = preload("res://assets/attention_suspicious.png")

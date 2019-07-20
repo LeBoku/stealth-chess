@@ -14,6 +14,7 @@ onready var manager = get_node("/root/Manager")
 onready var movesets = get_node("/root/Movesets")
 onready var pathfinder = get_node("/root/Pathfinder")
 onready var display = $Display
+onready var pathPreviewManager = $PathPreviewManager
 
 onready var board = manager.get_board()
 
@@ -49,12 +50,14 @@ func set_selected(state):
 		emit_signal("on_deselected" , self)
 
 func set_planned_path_to(goal):
-	var goal_position = board.convert_to_board_position(goal)
-	planned_path = pathfinder.get_shortest_path(get_board_position(), goal_position, type)
+	var goal_position = board.convert_to_cell(goal)
+	planned_path = pathfinder.get_shortest_path(get_cell(), goal_position, type)
 	
 	if planned_path == null:
 		planned_path = []
-
+		
+	pathPreviewManager.show_preview(planned_path)
+	
 func move_to(position):
 	var cell_content = board.get_cell_content(position)
 	
@@ -68,10 +71,10 @@ func get_eaten():
 	queue_free()
 	
 func get_possible_moves():
-	return movesets.get_moves(type, get_board_position(), board)
+	return movesets.get_moves(type, get_cell(), board)
 
-func get_board_position():
-	return board.convert_to_board_position(self.global_position);
+func get_cell():
+	return board.convert_to_cell(self.global_position);
 
 func is_over_piece(position):
-	return get_board_position() == board.convert_to_board_position(position)
+	return get_cell() == board.convert_to_cell(position)

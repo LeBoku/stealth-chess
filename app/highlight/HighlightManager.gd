@@ -7,10 +7,8 @@ onready var board = manager.get_board()
 
 func add_highlight(cell: Vector2, type = "Undefined"):
 	var h = Highlight.instance();
-	h.position = board.convert_to_position(cell)
 	h.add_to_group(type)
-	
-	board.add_child(h)
+	board.place_element(h, cell)
 	return h
 	
 func clear_highlights(type = "Undefined"):
