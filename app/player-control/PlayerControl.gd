@@ -21,5 +21,5 @@ func _on_figure_on_deselected(figure):
 	highlight_manager.clear_highlights(Util.PLAYER_MOVE_HIGHLIGHT)
 	
 func _on_highlight_selected(highlight):
-	piece.set_planned_path_to(highlight.position)
+	piece.set_planned_path_to(Util.convert_to_cell(highlight.position))
 	piece.set_selected(false)

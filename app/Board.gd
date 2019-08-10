@@ -1,10 +1,9 @@
 extends TileMap
 
 const Util = preload("res://app/Util.gd")
-var square_size = cell_size.x
 
 func place_element(element: Node2D, cell:Vector2):
-	element.position = convert_to_position(cell)
+	element.position = Util.convert_to_position(cell)
 	add_child(element)
 
 func get_cell_content(position):
@@ -27,12 +26,6 @@ func get_cell_piece(position):
 	
 func get_all_pieces():
 	return get_tree().get_nodes_in_group("Piece")
-	
-func convert_to_position(cell):
-	return Vector2(cell.x * square_size + square_size/2, cell.y * square_size + square_size/2)
-
-func convert_to_cell(position):
-	return Vector2(floor(position.x / square_size), floor(position.y / square_size))
 
 func is_same_cell(a, b):
-	return convert_to_cell(a) == convert_to_cell(b)
+	return Util.convert_to_cell(a) == Util.convert_to_cell(b)

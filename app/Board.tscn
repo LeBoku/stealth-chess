@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://app/Manger.gd" type="Script" id=1]
 [ext_resource path="res://app/highlight/HighlightManager.gd" type="Script" id=2]
@@ -8,13 +8,6 @@
 [ext_resource path="res://app/pieces/Piece.tscn" type="PackedScene" id=6]
 [ext_resource path="res://app/player-control/PlayerControl.tscn" type="PackedScene" id=7]
 [ext_resource path="res://app/enemies/Enemy.tscn" type="PackedScene" id=8]
-[ext_resource path="res://app/enemies/PatrolBehaviour.gd" type="Script" id=9]
-
-[sub_resource type="Curve2D" id=1]
-bake_interval = 50.0
-_data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 175, -75, 0, 0, 0, 0, 525, -75, 0, 0, 0, 0, 525, -25, 0, 0, 0, 0, 175, -25, 0, 0, 0, 0, 175, -75 )
-}
 
 [node name="Manager" type="Node2D"]
 script = ExtResource( 1 )
@@ -45,6 +38,7 @@ tile_data = PoolIntArray( -262142, 2, 0, -262141, 2, 0, -262140, 2, 0, -262139, 
 script = ExtResource( 5 )
 
 [node name="Knight" parent="Board" instance=ExtResource( 6 )]
+editor/display_folded = true
 position = Vector2( 175, 24 )
 type = 5
 
@@ -55,11 +49,4 @@ position = Vector2( 225, -25 )
 type = 1
 
 [node name="E_Rook" parent="Board/E_Rook2" instance=ExtResource( 8 )]
-
-[node name="RookPatrol" type="Path2D" parent="Board/E_Rook2/E_Rook"]
-position = Vector2( -225, 25 )
-curve = SubResource( 1 )
-
-[node name="PatrolAI" type="Node" parent="Board/E_Rook2/E_Rook"]
-script = ExtResource( 9 )
-patrol_path = NodePath("../RookPatrol")
+patrol_cells = PoolVector2Array( 3, -2, 8, -2 )

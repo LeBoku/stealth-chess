@@ -25,3 +25,9 @@ static func slice(array: Array, from:int, to = null):
 		slice.append(array[i])
 	
 	return slice
+	
+static func convert_to_position(cell):
+	return Vector2(cell.x * 50 + 50/2, cell.y * 50 + 50/2)
+
+static func convert_to_cell(position):
+	return Vector2(floor(position.x / 50), floor(position.y / 50))

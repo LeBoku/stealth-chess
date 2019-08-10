@@ -13,8 +13,8 @@ func detect_things():
 		
 	return detected
 
-func look_at_position(position):
-	var view_direction = position - piece.position
+func look_at_cell(cell):
+	var view_direction = cell - piece.get_cell()
 	rotation = view_direction.angle()
 
 func is_in_view(thing):

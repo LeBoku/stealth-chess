@@ -49,9 +49,8 @@ func set_selected(state):
 	else:
 		emit_signal("on_deselected" , self)
 
-func set_planned_path_to(goal):
-	var goal_position = board.convert_to_cell(goal)
-	planned_path = pathfinder.get_shortest_path(get_cell(), goal_position, type)
+func set_planned_path_to(goal_cell):
+	planned_path = pathfinder.get_shortest_path(get_cell(), goal_cell, type)
 	
 	if planned_path == null:
 		planned_path = []
@@ -64,7 +63,7 @@ func move_to(position):
 	if cell_content[1] != null:
 		cell_content[1].get_eaten()
 	
-	self.position = board.convert_to_position(position)
+	self.position = Util.convert_to_position(position)
 
 func get_eaten():
 	emit_signal("on_eaten")
@@ -74,7 +73,7 @@ func get_possible_moves():
 	return movesets.get_moves(type, get_cell(), board)
 
 func get_cell():
-	return board.convert_to_cell(self.global_position);
+	return Util.convert_to_cell(self.global_position);
 
 func is_over_piece(position):
-	return get_cell() == board.convert_to_cell(position)
+	return get_cell() == Util.convert_to_cell(position)
