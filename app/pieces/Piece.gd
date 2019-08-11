@@ -1,11 +1,10 @@
-extends Node2D
-
-const Util = preload("res://app/Util.gd")
+extends "res://app/BoardEntity.gd"
 
 signal on_selected
 signal on_deselected
 signal on_eaten
 signal on_turn
+signal reached_path_end
 
 export(Util.Figures) var type = Util.Figures.Pawn
 var is_friend = true
@@ -14,7 +13,7 @@ onready var manager = get_node("/root/Manager")
 onready var movesets = get_node("/root/Movesets")
 onready var pathfinder = get_node("/root/Pathfinder")
 onready var display = $Display
-onready var pathPreviewManager = $PathPreviewManager
+onready var path_preview_manager = $PathPreviewManager
 
 onready var board = manager.get_board()
 
@@ -25,20 +24,24 @@ var is_selectable: bool = true
 
 func _ready():
 	add_to_group("Piece")
-	
 	if is_friend:
 		add_to_group("Friend")
+
+	self.connect("click", self, "on_click")
 
 func process_turn():
 	if len(planned_path):
 		move_to(planned_path.pop_front())
 		
+		if len(planned_path) == 0:
+			path_preview_manager.clear_preview()
+			emit_signal("reached_path_end", self)
+		
 	emit_signal("on_turn")
 
-func _input(event):
-	if event is InputEventMouseButton and not event.pressed and is_selectable and is_over_piece(get_global_mouse_position()):
-		set_selected( not is_selected)
-	 
+func on_click(target):
+	set_selected( not is_selected)
+
 func set_selected(state):
 	is_selected = state
 
@@ -55,7 +58,7 @@ func set_planned_path_to(goal_cell):
 	if planned_path == null:
 		planned_path = []
 		
-	pathPreviewManager.show_preview(planned_path)
+	path_preview_manager.show_preview(planned_path)
 	
 func move_to(position):
 	var cell_content = board.get_cell_content(position)
@@ -71,9 +74,3 @@ func get_eaten():
 	
 func get_possible_moves():
 	return movesets.get_moves(type, get_cell(), board)
-
-func get_cell():
-	return Util.convert_to_cell(self.global_position);
-
-func is_over_piece(position):
-	return get_cell() == Util.convert_to_cell(position)

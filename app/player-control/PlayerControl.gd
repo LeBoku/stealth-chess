@@ -9,17 +9,17 @@ onready var highlight_manager = get_node("/root/Manager/HighlightManager")
 onready var piece: Piece = get_parent()
 
 func _ready():
-	piece.connect("on_selected", self, "_on_figure_on_selected")
-	piece.connect("on_deselected", self, "_on_figure_on_deselected")
+	piece.connect("on_selected", self, "on_figure_on_selected")
+	piece.connect("on_deselected", self, "clear_highlights")
 
-func _on_figure_on_selected(figure):
+func on_figure_on_selected(figure):
 	for move in figure.get_possible_moves():
 		var highlight = highlight_manager.add_highlight(move, Util.PLAYER_MOVE_HIGHLIGHT)
-		highlight.connect("highlight_selected", self, "_on_highlight_selected")
+		highlight.connect("click", self, "on_highlight_click")
 		
-func _on_figure_on_deselected(figure):
+func clear_highlights(figure):
 	highlight_manager.clear_highlights(Util.PLAYER_MOVE_HIGHLIGHT)
 	
-func _on_highlight_selected(highlight):
-	piece.set_planned_path_to(Util.convert_to_cell(highlight.position))
+func on_highlight_click(highlight):
+	piece.set_planned_path_to(highlight.get_cell())
 	piece.set_selected(false)
