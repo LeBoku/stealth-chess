@@ -23,6 +23,9 @@ func _ready():
 	piece.connect("on_eaten", self, "queue_free")
 	piece.connect("on_turn", self, "process_turn")
 	
+	piece.connect("hover_enter", self, "on_hover_enter")
+	piece.connect("hover_leave", self, "on_hover_leave")
+	
 	patrol_helper.init(piece, self, patrol_cells)
 
 func process_turn():
@@ -54,3 +57,11 @@ func set_attention_state(state):
 				attention_state_indicator.texture = alerted_sprite
 		
 	attention_state = state
+	
+func on_hover_enter(piece):
+	view_cone.show_view_cone()
+	piece.highlight_planned_path()
+	
+func on_hover_leave(piece):
+	piece.clear_planned_path_highlight()
+	view_cone.hide_view_cone()

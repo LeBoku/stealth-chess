@@ -1,34 +1,59 @@
 extends Sprite
 
+const Util = preload("res://app/Util.gd")
+
 onready var manager = get_node("/root/Manager")
+onready var highlight_manager = get_node("/root/Manager/HighlightManager")
 onready var board = manager.get_board()
 
 onready var piece = get_parent().get_parent()
 
+const view_cone_spread =  [
+	-Util.RAD_45_DEG,
+	-Util.RAD_30_DEG,
+	-Util.RAD_15_DEG,
+	0, 
+	+Util.RAD_15_DEG,
+	+Util.RAD_30_DEG,
+	+Util.RAD_45_DEG
+]
+
 func detect_things():
 	var detected = []
-	for detectable in get_detectables():
-		if is_in_view(detectable):
-			detected.append(detectable)
-		
+	
+	for cell in get_visible_cells():
+		var content = board.get_cell_content(cell)
+		if content.piece and content.piece.is_friend:
+			detected.append(content.piece)
+
 	return detected
 
 func look_at_cell(cell):
 	var view_direction = cell - piece.get_cell()
-	rotation = view_direction.angle()
+	rotation = round(view_direction.angle() / Util.RAD_45_DEG) *  Util.RAD_45_DEG
 
-func is_in_view(thing):
-	var direction_to_thing = (thing.position - piece.position).normalized() 
-	var view_direction  = piece.position.rotated(rotation).normalized();
+func get_visible_cells():
+	var cells = []
+	var piece_cell = piece.get_cell()
 	
-	print(view_direction.dot(direction_to_thing))
-	return view_direction.dot(direction_to_thing) > 0
-	
-func get_detectables():
-	var detectable = []
-	
-	for piece in board.get_all_pieces():
-		if piece.is_friend:
-			detectable.append(piece)
+	for spread in view_cone_spread:
+		var current_rotation = rotation + spread
+		var view_vector = Vector2(cos(current_rotation), sin(current_rotation)).normalized()
 
-	return detectable
+		for i in range(1, 5):
+			var cell = Util.round_to_cell(piece_cell + view_vector * i)
+			var cell_content = board.get_cell_content(cell)
+			
+			if cell_content.type != Util.CellType.Empty:
+				break
+			elif not cells.has(cell):
+				cells.append(cell);
+		
+	return cells
+	
+func show_view_cone():
+	for cell in get_visible_cells():
+		highlight_manager.add_highlight(cell, Util.ENEMY_VIEW_HIGHLIGHT)
+	
+func hide_view_cone():
+	highlight_manager.clear_highlights(Util.ENEMY_VIEW_HIGHLIGHT)

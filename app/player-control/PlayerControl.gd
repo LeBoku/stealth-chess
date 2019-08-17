@@ -21,5 +21,5 @@ func clear_highlights(figure):
 	highlight_manager.clear_highlights(Util.PLAYER_MOVE_HIGHLIGHT)
 	
 func on_highlight_click(highlight):
-	piece.set_planned_path_to(highlight.get_cell())
+	piece.set_planned_path_to(highlight.get_cell(), true)
 	piece.set_selected(false)

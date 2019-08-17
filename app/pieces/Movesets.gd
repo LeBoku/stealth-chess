@@ -39,17 +39,14 @@ func get_moves(type, from: Vector2, board: Board, max_distance: int = 8):
 
 func is_cell_valid(position, board):
 	var cell_content = board.get_cell_content(position)
-	var type = cell_content[0]
-	var piece = cell_content[1]
-	
-	return type == Util.CellContent.Empty
+	return cell_content.type == Util.CellType.Empty
 
 func get_special_pawn_moves(from: Vector2, board: Board):
 	var specials = []
 	
 	for possibility in [from + Vector2(-1, -1), from + Vector2(1, -1)]:
 		var cell_content = board.get_cell_content(possibility)
-		if cell_content[1] != null and not cell_content[1].is_friend:
+		if cell_content.piece != null and not cell_content.piece.is_friend:
 			specials.append(possibility)
 		
 	return specials

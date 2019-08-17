@@ -34,7 +34,7 @@ func process_turn():
 		move_to(planned_path.pop_front())
 		
 		if len(planned_path) == 0:
-			path_preview_manager.clear_preview()
+			clear_planned_path_highlight()
 			emit_signal("reached_path_end", self)
 		
 	emit_signal("on_turn")
@@ -52,19 +52,25 @@ func set_selected(state):
 	else:
 		emit_signal("on_deselected" , self)
 
-func set_planned_path_to(goal_cell):
+func set_planned_path_to(goal_cell, highlight = false):
 	planned_path = pathfinder.get_shortest_path(get_cell(), goal_cell, type)
 	
 	if planned_path == null:
 		planned_path = []
-		
+	elif highlight:
+		highlight_planned_path()
+
+func highlight_planned_path():
 	path_preview_manager.show_preview(planned_path)
+	
+func clear_planned_path_highlight():
+	path_preview_manager.clear_preview()
 	
 func move_to(position):
 	var cell_content = board.get_cell_content(position)
 	
-	if cell_content[1] != null:
-		cell_content[1].get_eaten()
+	if cell_content.piece != null:
+		cell_content.piece.get_eaten()
 	
 	self.position = Util.convert_to_position(position)
 

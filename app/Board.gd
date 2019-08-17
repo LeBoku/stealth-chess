@@ -7,17 +7,17 @@ func place_element(element: Node2D, cell:Vector2):
 	add_child(element)
 
 func get_cell_content(position):
-	var content_type = Util.CellContent.Empty
+	var content_type = Util.CellType.Empty
 	var piece: Node = null
 	
 	var tile_type = get_cell(position.x, position.y)
 
 	if not(tile_type == 0 or tile_type == 1):
-		content_type = Util.CellContent.Obstacle
+		content_type = Util.CellType.Obstacle
 	else:
 		piece = get_cell_piece(position)
 	
-	return [content_type, piece]
+	return Util.CellData.new(content_type, piece)
 	
 func get_cell_piece(position):
 	for piece in get_all_pieces():
