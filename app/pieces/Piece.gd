@@ -40,7 +40,7 @@ func process_turn():
 	emit_signal("on_turn")
 
 func on_click(target):
-	set_selected( not is_selected)
+	set_selected(not is_selected)
 
 func set_selected(state):
 	is_selected = state
@@ -76,6 +76,10 @@ func move_to(position):
 
 func get_eaten():
 	emit_signal("on_eaten")
+	
+	if is_selected:
+		manager.set_selected_figure(null)
+	
 	queue_free()
 	
 func get_possible_moves():

@@ -40,12 +40,19 @@ script = ExtResource( 5 )
 [node name="Knight" parent="Board" instance=ExtResource( 6 )]
 editor/display_folded = true
 position = Vector2( 175, 24 )
-type = 5
+type = 2
 
 [node name="PlayerControl" parent="Board/Knight" instance=ExtResource( 7 )]
 
+[node name="Queen" parent="Board" instance=ExtResource( 6 )]
+position = Vector2( 75, 74 )
+type = 5
+
+[node name="PlayerControl" parent="Board/Queen" instance=ExtResource( 7 )]
+
 [node name="E_Rook2" parent="Board" instance=ExtResource( 6 )]
-position = Vector2( 225, -25 )
+editor/display_folded = true
+position = Vector2( 175, -75 )
 type = 1
 
 [node name="E_Rook" parent="Board/E_Rook2" instance=ExtResource( 8 )]
