@@ -13,12 +13,12 @@ func set_selected_figure(figure):
 
 func _process(delta):
 	if Input.is_action_just_pressed("next_turn"):
-		process_turn()
+		process_enemy_turn()
 
-func process_turn():
+func process_enemy_turn():
 	get_tree().set_group_flags(get_tree().GROUP_CALL_DEFAULT, "Piece", "is_selectable", false)
 	
-	for piece in get_tree().get_nodes_in_group("Piece"):
+	for piece in get_tree().get_nodes_in_group("Enemy"):
 		piece.process_turn()
 	
 	get_tree().set_group_flags(get_tree().GROUP_CALL_DEFAULT, "Piece", "is_selectable", true)

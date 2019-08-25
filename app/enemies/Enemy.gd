@@ -58,7 +58,7 @@ func set_attention_state(state):
 		
 	attention_state = state
 	
-func on_eaten(piece):
+func on_eaten():
 	view_cone.hide_view_cone()
 	queue_free()
 	

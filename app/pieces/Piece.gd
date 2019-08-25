@@ -30,13 +30,7 @@ func _ready():
 	self.connect("click", self, "on_click")
 
 func process_turn():
-	if len(planned_path):
-		move_to(planned_path.pop_front())
-		
-		if len(planned_path) == 0:
-			clear_planned_path_highlight()
-			emit_signal("reached_path_end", self)
-		
+	move_along_planned_path()
 	emit_signal("on_turn")
 
 func on_click(target):
@@ -50,6 +44,7 @@ func set_selected(state):
 		emit_signal("on_selected" , self)
 
 	else:
+		manager.selected_figure = null
 		emit_signal("on_deselected" , self)
 
 func set_planned_path_to(goal_cell, highlight = false):
@@ -59,6 +54,18 @@ func set_planned_path_to(goal_cell, highlight = false):
 		planned_path = []
 	elif highlight:
 		highlight_planned_path()
+		
+func move_along_planned_path():
+	if len(planned_path):
+		move_to(planned_path.pop_front())
+		
+		if len(planned_path) == 0:
+			clear_planned_path_highlight()
+			emit_signal("reached_path_end", self)
+			
+		return true
+	else:
+		return false
 
 func highlight_planned_path():
 	path_preview_manager.show_preview(planned_path)

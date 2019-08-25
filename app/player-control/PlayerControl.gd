@@ -21,5 +21,11 @@ func clear_highlights(figure):
 	highlight_manager.clear_highlights(Util.PLAYER_MOVE_HIGHLIGHT)
 	
 func on_highlight_click(highlight):
-	piece.set_planned_path_to(highlight.get_cell(), true)
 	piece.set_selected(false)
+	piece.set_planned_path_to(highlight.get_cell(), true)
+
+	yield(get_tree().create_timer(0.2), "timeout")
+	while piece.move_along_planned_path():
+		yield(get_tree().create_timer(0.2), "timeout")
+		manager.process_enemy_turn()
+		yield(get_tree().create_timer(0.2), "timeout")
