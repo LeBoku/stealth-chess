@@ -17,10 +17,10 @@ onready var patrol_helper = PatrolHelper.new()
 var attention_state = Util.AttentionStates.None setget set_attention_state
 
 func _ready():
-	add_to_group("Enemy")
+	piece.add_to_group("Enemy")
 	piece.is_friend = false
 	
-	piece.connect("on_eaten", self, "queue_free")
+	piece.connect("on_eaten", self, "on_eaten")
 	piece.connect("on_turn", self, "process_turn")
 	
 	piece.connect("hover_enter", self, "on_hover_enter")
@@ -57,6 +57,10 @@ func set_attention_state(state):
 				attention_state_indicator.texture = alerted_sprite
 		
 	attention_state = state
+	
+func on_eaten(piece):
+	view_cone.hide_view_cone()
+	queue_free()
 	
 func on_hover_enter(piece):
 	view_cone.show_view_cone()

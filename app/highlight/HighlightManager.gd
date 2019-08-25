@@ -7,7 +7,7 @@ onready var board = manager.get_board()
 
 func add_highlight(cell: Vector2, type = "Undefined"):
 	var h = Highlight.instance();
-	h.add_to_group(type)
+	h.set_highlight_type(type)
 	board.place_element(h, cell)
 	return h
 	
