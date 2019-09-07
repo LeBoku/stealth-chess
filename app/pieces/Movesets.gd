@@ -16,13 +16,11 @@ var move_sets = {
 	Util.Figures.Queen: omnidirectional_moves
 }
 
-func get_moves(type, from: Vector2, board: Board, max_distance: int = 8):
+func get_moves(type, from: Vector2, board: Board, max_distance: int = 1):
 	var moves = []
 	
-	if type == Util.Figures.Pawn:
-		max_distance = min(max_distance, 2)
-	elif type == Util.Figures.Knight or type == Util.Figures.King:
-		max_distance = min(max_distance, 1)
+	if max_distance == 0 and type == Util.Figures.Pawn:
+		max_distance = 2
 	
 	for move in move_sets[type]:
 		for distance in range(0, max_distance):
