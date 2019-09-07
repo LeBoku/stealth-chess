@@ -21,7 +21,12 @@ func clear_highlights(figure):
 	highlight_manager.clear_highlights(Util.PLAYER_MOVE_HIGHLIGHT)
 	
 func on_highlight_click(highlight):
+	var goal = highlight.get_cell()
 	piece.set_selected(false)
-	piece.move_to(highlight.get_cell())
+	
 	yield(get_tree().create_timer(0.2), "timeout")
+	
+	piece.move_to(goal)
 	manager.process_enemy_turn()
+	
+	piece.set_selected(true)

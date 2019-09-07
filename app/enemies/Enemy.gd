@@ -6,6 +6,7 @@ const suspicious_sprite = preload("res://assets/attention_suspicious.png")
 const alerted_sprite = preload("res://assets/attention_alerted.png")
 
 export var patrol_cells = PoolVector2Array()
+export var view_angle = 0
 
 onready var piece = get_parent()
 onready var view_cone = $ViewCone
@@ -19,6 +20,7 @@ var attention_state = Util.AttentionStates.None setget set_attention_state
 func _ready():
 	piece.add_to_group("Enemy")
 	piece.is_friend = false
+	view_cone.set_rotation(view_angle * PI / 180)
 	
 	piece.connect("on_eaten", self, "on_eaten")
 	piece.connect("on_turn", self, "process_turn")

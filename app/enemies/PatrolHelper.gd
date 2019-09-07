@@ -14,8 +14,9 @@ func init(piece, piece_controller, patrol_cells):
 
 func start_patrol_to_closest_cell():
 	var closest_patroll_cell = find_closest_patrol_cell();
-	piece.set_planned_path_to(closest_patroll_cell)
-	piece_controller.view_cone.look_at_cell(closest_patroll_cell)
+	if closest_patroll_cell != null:
+		piece.set_planned_path_to(closest_patroll_cell)
+		piece_controller.view_cone.look_at_cell(closest_patroll_cell)
 
 func process_turn():
 	if len(piece.planned_path):
