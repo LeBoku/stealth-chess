@@ -19,6 +19,9 @@ class CellData:
 		
 	func get_piece():
 		return self.piece
+		
+	func is_walkable(piece):
+		return self.type == CellType.Empty and (self.piece == null or self.piece.is_friend != piece.is_friend)
 
 static func rotate_moves(moves):
 	var rotated_moves = [] + moves

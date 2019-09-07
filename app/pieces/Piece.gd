@@ -48,7 +48,7 @@ func set_selected(state):
 		emit_signal("on_deselected" , self)
 
 func set_planned_path_to(goal_cell, highlight = false):
-	planned_path = pathfinder.get_shortest_path(get_cell(), goal_cell, type)
+	planned_path = pathfinder.get_shortest_path(get_cell(), goal_cell, self)
 	
 	if planned_path == null:
 		planned_path = []
@@ -90,4 +90,4 @@ func get_eaten():
 	queue_free()
 	
 func get_possible_moves():
-	return movesets.get_moves(type, get_cell(), board)
+	return movesets.get_moves(self, get_cell(), board)

@@ -16,28 +16,28 @@ var move_sets = {
 	Util.Figures.Queen: omnidirectional_moves
 }
 
-func get_moves(type, from: Vector2, board: Board, max_distance: int = 1):
+func get_moves(piece, from: Vector2, board: Board, max_distance: int = 1):
 	var moves = []
 	
-	if max_distance == 0 and type == Util.Figures.Pawn:
+	if max_distance == 0 and piece.type == Util.Figures.Pawn:
 		max_distance = 2
 	
-	for move in move_sets[type]:
+	for move in move_sets[piece.type]:
 		for distance in range(0, max_distance):
 			var step = move * (distance + 1) + from
-			if is_cell_valid(step, board):
+			if is_cell_valid(step, board, piece):
 				moves.append(step)
 			else:
 				break
 
-	if type == Util.Figures.Pawn:
+	if piece.type == Util.Figures.Pawn:
 		moves += get_special_pawn_moves(from, board)
 	
 	return moves
 
-func is_cell_valid(position, board):
+func is_cell_valid(position, board, piece):
 	var cell_content = board.get_cell_content(position)
-	return cell_content.type == Util.CellType.Empty
+	return cell_content.is_walkable(piece)
 
 func get_special_pawn_moves(from: Vector2, board: Board):
 	var specials = []

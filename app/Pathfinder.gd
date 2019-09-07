@@ -8,8 +8,8 @@ onready var board = manager.get_board()
 
 var sorter = ByDistanceSorter.new()
 
-func get_shortest_path(from: Vector2, to: Vector2, figure_type, _happend_steps = [], shortest_path = null):
-	var moves = movesets.get_moves(figure_type, from, board, 1)
+func get_shortest_path(from: Vector2, to: Vector2, piece, _happend_steps = [], shortest_path = null):
+	var moves = movesets.get_moves(piece, from, board, 1)
 	moves = remove_tried_steps(_happend_steps, shortest_path, moves)
 	moves = sorter.sort_by_distance(moves, to)
 	
@@ -34,7 +34,7 @@ func get_shortest_path(from: Vector2, to: Vector2, figure_type, _happend_steps =
 			if move == to:
 				shortest_path = current_path
 			else:
-				shortest_path = get_shortest_path(move, to, figure_type, current_path, shortest_path)
+				shortest_path = get_shortest_path(move, to, piece, current_path, shortest_path)
 
 	return shortest_path
 
