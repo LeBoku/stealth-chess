@@ -51,7 +51,6 @@ type = 5
 [node name="PlayerControl" parent="Board/Queen" instance=ExtResource( 7 )]
 
 [node name="E_Rook2" parent="Board" instance=ExtResource( 6 )]
-editor/display_folded = true
 position = Vector2( 175, -75 )
 type = 1
 

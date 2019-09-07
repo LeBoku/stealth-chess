@@ -24,6 +24,13 @@ config/icon="res://icon.png"
 Movesets="*res://app/pieces/Movesets.gd"
 Pathfinder="*res://app/Pathfinder.gd"
 
+[debug]
+
+gdscript/warnings/unused_variable=false
+gdscript/warnings/unused_class_variable=false
+gdscript/warnings/unused_argument=false
+gdscript/warnings/return_value_discarded=false
+
 [display]
 
 window/size/width=1920

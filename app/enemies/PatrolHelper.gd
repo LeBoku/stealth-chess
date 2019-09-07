@@ -9,7 +9,6 @@ func init(piece, piece_controller, patrol_cells):
 	self.piece_controller = piece_controller
 	self.patrol_cells = patrol_cells
 	
-	piece.connect("on_eaten", self, "queue_free")
 	piece.connect("on_turn", self, "process_turn")
 	piece.connect("ready", self, "start_patrol_to_closest_cell")
 
