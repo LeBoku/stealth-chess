@@ -1,5 +1,4 @@
 enum Figures { Pawn, Rook, Knight, Bishop, King, Queen }
-enum CellType { Empty, Obstacle }
 enum AttentionStates { None, Suspicious, Alerted}
 
 const PLAYER_MOVE_HIGHLIGHT = "PLAYER_MOVE"
@@ -9,19 +8,6 @@ const ENEMY_VIEW_HIGHLIGHT = "ENEMY_VIEW"
 const RAD_15_DEG = PI/12
 const RAD_30_DEG = PI/6
 const RAD_45_DEG = PI/4
-
-class CellData:
-	var type
-	var piece
-	func _init(type, piece = null):
-		self.type = type
-		self.piece = piece
-		
-	func get_piece():
-		return self.piece
-		
-	func is_walkable(piece):
-		return self.type == CellType.Empty and (self.piece == null or self.piece.is_friend != piece.is_friend)
 
 static func rotate_moves(moves):
 	var rotated_moves = [] + moves

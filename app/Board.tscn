@@ -19,7 +19,7 @@ script = ExtResource( 2 )
 position = Vector2( 300, 150 )
 current = true
 limit_left = -600
-limit_top = -300
+limit_top = -500
 limit_right = 1300
 limit_bottom = 800
 drag_margin_h_enabled = false
@@ -40,7 +40,7 @@ script = ExtResource( 5 )
 [node name="Knight" parent="Board" instance=ExtResource( 6 )]
 editor/display_folded = true
 position = Vector2( 75, 374 )
-type = 2
+type = 5
 
 [node name="PlayerControl" parent="Board/Knight" instance=ExtResource( 7 )]
 
@@ -52,22 +52,25 @@ type = 5
 [node name="PlayerControl" parent="Board/Queen" instance=ExtResource( 7 )]
 
 [node name="E_Rook_1" parent="Board" instance=ExtResource( 6 )]
+editor/display_folded = true
 position = Vector2( 175, -75 )
-type = 1
+type = 5
 
 [node name="E_Rook" parent="Board/E_Rook_1" instance=ExtResource( 8 )]
 patrol_cells = PoolVector2Array( 3, -2, 8, -2 )
 
 [node name="E_Rook_2" parent="Board" instance=ExtResource( 6 )]
+editor/display_folded = true
 position = Vector2( 475, -75 )
-type = 1
+type = 5
 
 [node name="E_Rook" parent="Board/E_Rook_2" instance=ExtResource( 8 )]
 patrol_cells = PoolVector2Array( 3, -2, 8, -2 )
 
 [node name="E_Bishop_1" parent="Board" instance=ExtResource( 6 )]
+editor/display_folded = true
 position = Vector2( 475, -275 )
-type = 3
+type = 5
 
 [node name="E_Rook" parent="Board/E_Bishop_1" instance=ExtResource( 8 )]
 view_angle = 180
@@ -75,6 +78,6 @@ view_angle = 180
 [node name="E_Bishop_2" parent="Board" instance=ExtResource( 6 )]
 editor/display_folded = true
 position = Vector2( 175, -275 )
-type = 3
+type = 5
 
 [node name="E_Rook" parent="Board/E_Bishop_2" instance=ExtResource( 8 )]

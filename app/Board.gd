@@ -1,23 +1,24 @@
 extends TileMap
 
 const Util = preload("res://app/Util.gd")
+const CellContent = preload("res://app/Util/CellContent.gd")
 
 func place_element(element: Node2D, cell:Vector2):
 	element.position = Util.convert_to_position(cell)
 	add_child(element)
 
 func get_cell_content(position):
-	var content_type = Util.CellType.Empty
+	var content_type = CellContent.CellType.Empty
 	var piece: Node = null
 	
 	var tile_type = get_cell(position.x, position.y)
 
 	if not(tile_type == 0 or tile_type == 1):
-		content_type = Util.CellType.Obstacle
+		content_type = CellContent.CellType.Obstacle
 	else:
 		piece = get_cell_piece(position)
 	
-	return Util.CellData.new(content_type, piece)
+	return CellContent.new(content_type, piece)
 	
 func get_cell_piece(position):
 	for piece in get_all_pieces():

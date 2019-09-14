@@ -47,7 +47,7 @@ func get_visible_cells():
 			var cell = Util.round_to_cell(piece_cell + view_vector * i)
 			var cell_content = board.get_cell_content(cell)
 			
-			if cell_content.type != Util.CellType.Empty:
+			if !cell_content.is_see_through():
 				break
 			elif not cells.has(cell):
 				cells.append(cell);

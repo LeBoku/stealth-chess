@@ -19,8 +19,6 @@ func start_patrol_to_closest_cell():
 		piece_controller.view_cone.look_at_cell(closest_patroll_cell)
 
 func process_turn():
-	if len(piece.planned_path):
-		piece_controller.view_cone.look_at_cell(piece.planned_path.back())
 	if active and len(piece.planned_path) == 0:
 		start_patrol_to_closest_cell()
 	

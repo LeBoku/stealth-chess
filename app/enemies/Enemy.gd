@@ -45,6 +45,9 @@ func process_turn():
 			self.attention_state = Util.AttentionStates.Suspicious
 			
 		patrol_helper.active = true
+		
+	if len(piece.planned_path):
+		view_cone.look_at_cell(piece.planned_path.back())
 
 func set_attention_state(state):
 	if state != attention_state:
