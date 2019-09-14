@@ -17,6 +17,7 @@ func _process(delta):
 
 func process_enemy_turn():
 	get_tree().set_group_flags(get_tree().GROUP_CALL_DEFAULT, "Piece", "is_selectable", false)
+	get_tree().set_group_flags(get_tree().GROUP_CALL_DEFAULT, "Enemy", "has_processed_turn", false)
 	
 	for piece in get_tree().get_nodes_in_group("Enemy"):
 		piece.process_turn()

@@ -9,7 +9,7 @@ onready var board = manager.get_board()
 var sorter = ByDistanceSorter.new()
 
 func get_shortest_path(from: Vector2, to: Vector2, piece, _happend_steps = [], shortest_path = null):
-	var moves = movesets.get_moves(piece, from, board, 1)
+	var moves = movesets.get_moves(piece, from, board)
 	moves = remove_tried_steps(_happend_steps, shortest_path, moves)
 	moves = sorter.sort_by_distance(moves, to)
 	

@@ -13,7 +13,7 @@ func _ready():
 	piece.connect("on_deselected", self, "clear_highlights")
 
 func on_figure_on_selected(figure):
-	for move in figure.get_possible_moves():
+	for move in figure.get_possible_moves(true):
 		var highlight = highlight_manager.add_highlight(move, Util.PLAYER_MOVE_HIGHLIGHT)
 		highlight.connect("click", self, "on_highlight_click")
 		

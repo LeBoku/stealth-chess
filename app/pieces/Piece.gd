@@ -19,6 +19,8 @@ onready var board = manager.get_board()
 
 var planned_path = []
 
+var has_processed_turn: bool = true;
+
 var is_selected: bool = false
 var is_selectable: bool = true
 
@@ -32,6 +34,7 @@ func _ready():
 func process_turn():
 	move_along_planned_path()
 	emit_signal("on_turn")
+	has_processed_turn = true;
 
 func on_click(target):
 	set_selected(not is_selected)
@@ -47,6 +50,9 @@ func set_selected(state):
 		manager.selected_figure = null
 		emit_signal("on_deselected" , self)
 
+func is_ally(piece):
+	return piece.is_friend == is_friend
+
 func set_planned_path_to(goal_cell, highlight = false):
 	planned_path = pathfinder.get_shortest_path(get_cell(), goal_cell, self)
 	
@@ -57,7 +63,10 @@ func set_planned_path_to(goal_cell, highlight = false):
 		
 func move_along_planned_path():
 	if len(planned_path):
-		move_to(planned_path.pop_front())
+		var next_step = planned_path.front()
+
+		if board.get_cell_content(next_step).is_walkable(self, true):
+			move_to(planned_path.pop_front())
 		
 		if len(planned_path) == 0:
 			clear_planned_path_highlight()
@@ -76,7 +85,7 @@ func clear_planned_path_highlight():
 func move_to(position):
 	var cell_content = board.get_cell_content(position)
 	
-	if cell_content.piece != null:
+	if cell_content.contains_enemy(self):
 		cell_content.piece.get_eaten()
 	
 	self.position = Util.convert_to_position(position)
@@ -89,5 +98,5 @@ func get_eaten():
 	
 	queue_free()
 	
-func get_possible_moves():
-	return movesets.get_moves(self, get_cell(), board)
+func get_possible_moves(immediatly = false):
+	return movesets.get_moves(self, get_cell(), board, immediatly)
