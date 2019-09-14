@@ -7,7 +7,6 @@ signal on_turn
 signal reached_path_end
 
 export(Util.Figures) var type = Util.Figures.Pawn
-var is_friend = true
 
 onready var manager = get_node("/root/Manager")
 onready var movesets = get_node("/root/Movesets")
@@ -17,8 +16,9 @@ onready var path_preview_manager = $PathPreviewManager
 
 onready var board = manager.get_board()
 
-var planned_path = []
+var allegiance = Util.PieceAllegiance.Neutral
 
+var planned_path = []
 var has_processed_turn: bool = true;
 
 var is_selected: bool = false
@@ -26,9 +26,6 @@ var is_selectable: bool = true
 
 func _ready():
 	add_to_group("Piece")
-	if is_friend:
-		add_to_group("Friend")
-
 	self.connect("click", self, "on_click")
 
 func process_turn():
@@ -51,7 +48,7 @@ func set_selected(state):
 		emit_signal("on_deselected" , self)
 
 func is_ally(piece):
-	return piece.is_friend == is_friend
+	return piece.allegiance == allegiance
 
 func set_planned_path_to(goal_cell, highlight = false):
 	planned_path = pathfinder.get_shortest_path(get_cell(), goal_cell, self)

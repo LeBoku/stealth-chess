@@ -31,7 +31,7 @@ func get_moves(piece, from: Vector2, board: Board, immediatly = false, max_dista
 				break
 
 	if piece.type == Util.Figures.Pawn:
-		moves += get_special_pawn_moves(from, board)
+		moves += get_special_pawn_moves(piece, from, board)
 	
 	return moves
 
@@ -39,12 +39,11 @@ func is_cell_valid(position, board, piece, immediatly = false):
 	var cell_content = board.get_cell_content(position)
 	return cell_content.is_walkable(piece, immediatly)
 
-func get_special_pawn_moves(from: Vector2, board: Board):
+func get_special_pawn_moves(piece, from: Vector2, board: Board):
 	var specials = []
 	
 	for possibility in [from + Vector2(-1, -1), from + Vector2(1, -1)]:
-		var cell_content = board.get_cell_content(possibility)
-		if cell_content.piece != null and not cell_content.piece.is_friend:
+		if board.get_cell_content(possibility).contains_enemy(piece):
 			specials.append(possibility)
 		
 	return specials

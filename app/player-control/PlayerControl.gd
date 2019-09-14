@@ -9,6 +9,8 @@ onready var highlight_manager = get_node("/root/Manager/HighlightManager")
 onready var piece: Piece = get_parent()
 
 func _ready():
+	piece.allegiance = Util.PieceAllegiance.Player
+	piece.add_to_group("Friend")
 	piece.connect("on_selected", self, "on_figure_on_selected")
 	piece.connect("on_deselected", self, "clear_highlights")
 

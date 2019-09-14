@@ -19,7 +19,7 @@ var attention_state = Util.AttentionStates.None setget set_attention_state
 
 func _ready():
 	piece.add_to_group("Enemy")
-	piece.is_friend = false
+	piece.allegiance = Util.PieceAllegiance.Enemy
 	view_cone.set_rotation(view_angle * PI / 180)
 	
 	piece.connect("on_eaten", self, "on_eaten")

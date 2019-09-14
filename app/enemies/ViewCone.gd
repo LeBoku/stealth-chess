@@ -23,7 +23,7 @@ func detect_things():
 	
 	for cell in get_visible_cells():
 		var content = board.get_cell_content(cell)
-		if content.piece and content.piece.is_friend:
+		if content.contains_enemy(piece):
 			detected.append(content.piece)
 
 	return detected
