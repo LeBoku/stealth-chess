@@ -20,5 +20,5 @@ func clear_preview():
 		active_preview.queue_free()
 		active_preview = null
 
-func _on_Piece_on_eaten():
+func _on_Piece_on_eaten(piece):
 	clear_preview()

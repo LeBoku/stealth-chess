@@ -41,11 +41,11 @@ func set_selected(state):
 
 	if state:
 		manager.set_selected_figure(self)
-		emit_signal("on_selected" , self)
+		emit_signal("on_selected", self)
 
 	else:
 		manager.selected_figure = null
-		emit_signal("on_deselected" , self)
+		emit_signal("on_deselected", self)
 
 func is_ally(piece):
 	return piece.allegiance == allegiance
@@ -88,11 +88,10 @@ func move_to(position):
 	self.position = Util.convert_to_position(position)
 
 func get_eaten():
-	emit_signal("on_eaten")
-	
 	if is_selected:
 		manager.set_selected_figure(null)
 	
+	emit_signal("on_eaten", self)
 	queue_free()
 	
 func get_possible_moves(immediatly = false):

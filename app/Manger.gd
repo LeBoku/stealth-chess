@@ -8,6 +8,7 @@ var selected_figure = null
 func set_selected_figure(figure):
 	if selected_figure:
 		selected_figure.set_selected(false)
+		selected_figure = null
 		 
 	selected_figure = figure
 

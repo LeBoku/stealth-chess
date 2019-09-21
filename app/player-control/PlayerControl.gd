@@ -13,6 +13,7 @@ func _ready():
 	piece.add_to_group("Friend")
 	piece.connect("on_selected", self, "on_figure_on_selected")
 	piece.connect("on_deselected", self, "clear_highlights")
+	piece.connect("on_eaten", self, "clear_highlights")
 
 func on_figure_on_selected(figure):
 	for move in figure.get_possible_moves(true):
@@ -31,4 +32,5 @@ func on_highlight_click(highlight):
 	piece.move_to(goal)
 	manager.process_enemy_turn()
 	
-	piece.set_selected(true)
+	if is_instance_valid(piece):
+		piece.set_selected(true)

@@ -6,7 +6,7 @@ onready var movesets = get_node("/root/Movesets")
 onready var manager = get_node("/root/Manager")
 onready var board = manager.get_board()
 
-var sorter = ByDistanceSorter.new()
+var sorter = Util.ByDistanceSorter.new()
 
 func get_shortest_path(from: Vector2, to: Vector2, piece, _happend_steps = [], shortest_path = null):
 	var moves = movesets.get_moves(piece, from, board)
@@ -49,14 +49,3 @@ func remove_tried_steps(happend_steps, shortest_path, moves):
 			valid_moves.append(move)
 			
 	return valid_moves
-
-class ByDistanceSorter:
-	var _target: Vector2
-
-	func sort_by_distance(moves: Array, target:Vector2):
-		_target = target
-		moves.sort_custom(self, "compare_distance")
-		return moves
-
-	func compare_distance(move1: Vector2, move2: Vector2):
-		return (_target - move1).length() < (_target - move2).length()

@@ -39,3 +39,14 @@ static func convert_to_position(cell):
 
 static func convert_to_cell(position):
 	return Vector2(floor(position.x / 50), floor(position.y / 50))
+	
+class ByDistanceSorter:
+	var _target: Vector2
+
+	func sort_by_distance(moves: Array, target:Vector2):
+		_target = target
+		moves.sort_custom(self, "compare_distance")
+		return moves
+
+	func compare_distance(move1: Vector2, move2: Vector2):
+		return (_target - move1).length() < (_target - move2).length()
