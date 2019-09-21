@@ -11,16 +11,16 @@ onready var piece: Piece = get_parent()
 func _ready():
 	piece.allegiance = Util.PieceAllegiance.Player
 	piece.add_to_group("Friend")
-	piece.connect("on_selected", self, "on_figure_on_selected")
+	piece.connect("on_selected", self, "on_piece_on_selected")
 	piece.connect("on_deselected", self, "clear_highlights")
 	piece.connect("on_eaten", self, "clear_highlights")
 
-func on_figure_on_selected(figure):
-	for move in figure.get_possible_moves(true):
+func on_piece_on_selected(piece):
+	for move in piece.get_possible_moves(true):
 		var highlight = highlight_manager.add_highlight(move, Util.PLAYER_MOVE_HIGHLIGHT)
 		highlight.connect("click", self, "on_highlight_click")
 		
-func clear_highlights(figure):
+func clear_highlights(piece):
 	highlight_manager.clear_highlights(Util.PLAYER_MOVE_HIGHLIGHT)
 	
 func on_highlight_click(highlight):

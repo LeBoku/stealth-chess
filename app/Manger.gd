@@ -4,13 +4,13 @@ const Board = preload("res://app/Board.gd")
 
 onready var board: Board = get_board()
 
-var selected_figure = null
-func set_selected_figure(figure):
-	if selected_figure:
-		selected_figure.set_selected(false)
-		selected_figure = null
+var selected_piece = null
+func set_selected_piece(piece):
+	if selected_piece:
+		selected_piece.set_selected(false)
+		selected_piece = null
 		 
-	selected_figure = figure
+	selected_piece = piece
 
 func _process(delta):
 	if Input.is_action_just_pressed("next_turn"):

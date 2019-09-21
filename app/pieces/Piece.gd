@@ -40,11 +40,11 @@ func set_selected(state):
 	is_selected = state
 
 	if state:
-		manager.set_selected_figure(self)
+		manager.set_selected_piece(self)
 		emit_signal("on_selected", self)
 
 	else:
-		manager.selected_figure = null
+		manager.selected_piece = null
 		emit_signal("on_deselected", self)
 
 func is_ally(piece):
@@ -89,7 +89,7 @@ func move_to(position):
 
 func get_eaten():
 	if is_selected:
-		manager.set_selected_figure(null)
+		manager.set_selected_piece(null)
 	
 	emit_signal("on_eaten", self)
 	queue_free()
