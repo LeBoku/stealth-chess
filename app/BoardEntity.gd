@@ -27,3 +27,6 @@ func get_cell():
 
 func is_over_piece(position):
 	return get_cell() == Util.convert_to_cell(position)
+	
+func set_rounded_rotation(angle):
+	rotation = Util.get_rounded_rotation(angle)

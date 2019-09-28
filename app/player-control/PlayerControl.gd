@@ -2,10 +2,12 @@ extends Node
 
 const Util = preload("res://app/Util.gd")
 const Piece = preload("res://app/pieces/Piece.gd")
+const PlayerMovePreview = preload("res://app/player-control/PlayerMovePreview.tscn")
 
 onready var manager = get_node("/root/Manager")
 onready var highlight_manager = get_node("/root/Manager/HighlightManager")
 
+onready var board = manager.get_board()
 onready var piece: Piece = get_parent()
 
 func _ready():
@@ -17,11 +19,14 @@ func _ready():
 
 func on_piece_on_selected(piece):
 	for move in piece.get_possible_moves(true):
-		var highlight = highlight_manager.add_highlight(move, Util.PLAYER_MOVE_HIGHLIGHT)
+		var highlight = board.place_element(PlayerMovePreview.instance(), move)
+		
+		highlight.initialize(piece)
 		highlight.connect("click", self, "on_highlight_click")
 		
 func clear_highlights(piece):
-	highlight_manager.clear_highlights(Util.PLAYER_MOVE_HIGHLIGHT)
+	for h in get_tree().get_nodes_in_group(Util.PLAYER_MOVE_HIGHLIGHT):
+		h.queue_free()
 	
 func on_highlight_click(highlight):
 	var goal = highlight.get_cell()

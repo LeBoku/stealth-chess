@@ -40,6 +40,9 @@ static func convert_to_position(cell):
 static func convert_to_cell(position):
 	return Vector2(floor(position.x / 50), floor(position.y / 50))
 	
+static func get_rounded_rotation(angle):
+	return round(angle / RAD_45_DEG) *  RAD_45_DEG
+	
 class ByDistanceSorter:
 	var _target: Vector2
 

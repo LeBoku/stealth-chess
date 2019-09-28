@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://app/highlight/Highlight.gd" type="Script" id=1]
-[ext_resource path="res://assets/highlight_weak.png" type="Texture" id=2]
+[ext_resource path="res://app/player-control/PlayerMovePreview.gd" type="Script" id=1]
+[ext_resource path="res://assets/direction.png" type="Texture" id=2]
 
 [node name="Highlight" type="Node2D"]
 script = ExtResource( 1 )

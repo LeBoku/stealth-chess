@@ -1,11 +1,14 @@
 extends TileMap
 
+class_name Board
+
 const Util = preload("res://app/Util.gd")
 const CellContent = preload("res://app/Util/CellContent.gd")
 
 func place_element(element: Node2D, cell:Vector2):
 	element.position = Util.convert_to_position(cell)
 	add_child(element)
+	return element
 
 func get_cell_content(position):
 	var content_type = CellContent.CellType.Empty

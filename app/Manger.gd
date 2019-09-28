@@ -25,5 +25,5 @@ func process_enemy_turn():
 	
 	get_tree().set_group_flags(get_tree().GROUP_CALL_DEFAULT, "Piece", "is_selectable", true)
 
-func get_board():
+func get_board() -> Board:
 	return get_tree().get_nodes_in_group("Board")[0]

@@ -30,12 +30,9 @@ func detect_things():
 
 	return detected
 
-func set_rotation(degrees):
-	rotation = round(degrees / Util.RAD_45_DEG) *  Util.RAD_45_DEG
-
 func look_at_cell(cell):
 	var view_direction = cell - piece.get_cell()
-	set_rotation(view_direction.angle())
+	rotation = Util.get_rounded_rotation(view_direction.angle())
 
 func get_visible_cells():
 	var cells = []
