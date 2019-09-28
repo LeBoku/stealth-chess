@@ -7,7 +7,8 @@ onready var board: Board = get_board()
 var selected_piece = null
 func set_selected_piece(piece):
 	if selected_piece:
-		selected_piece.set_selected(false)
+		if is_instance_valid(selected_piece):
+			selected_piece.set_selected(false)
 		selected_piece = null
 		 
 	selected_piece = piece

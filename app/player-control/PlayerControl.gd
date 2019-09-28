@@ -13,11 +13,11 @@ onready var piece: Piece = get_parent()
 func _ready():
 	piece.allegiance = Util.PieceAllegiance.Player
 	piece.add_to_group("Friend")
-	piece.connect("on_selected", self, "on_piece_on_selected")
+	piece.connect("on_selected", self, "display_player_options")
 	piece.connect("on_deselected", self, "clear_highlights")
 	piece.connect("on_eaten", self, "clear_highlights")
 
-func on_piece_on_selected(piece):
+func display_player_options(piece):
 	for move in piece.get_possible_moves(true):
 		var highlight = board.place_element(PlayerMovePreview.instance(), move)
 		
@@ -30,12 +30,12 @@ func clear_highlights(piece):
 	
 func on_highlight_click(highlight):
 	var goal = highlight.get_cell()
-	piece.set_selected(false)
+	clear_highlights(piece)
 	
 	yield(get_tree().create_timer(0.2), "timeout")
 	
 	piece.move_to(goal)
 	manager.process_enemy_turn()
 	
-	if is_instance_valid(piece):
-		piece.set_selected(true)
+	if piece.is_selected:
+		display_player_options(piece)

@@ -1,7 +1,5 @@
 extends TileMap
 
-class_name Board
-
 const Util = preload("res://app/Util.gd")
 const CellContent = preload("res://app/Util/CellContent.gd")
 
