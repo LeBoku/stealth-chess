@@ -1,5 +1,3 @@
-Singleton-ify Player Control
-declare core-loop (player-action --> enemy-action --> player...) in manager
 piece / become pure data storage
 	divorce view cone, moveset, pathfinder
 	remove selectable handling

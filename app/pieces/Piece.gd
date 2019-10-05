@@ -4,6 +4,7 @@ signal on_selected
 signal on_deselected
 signal on_death
 signal on_turn
+signal reached_path_end
 
 export(Util.Figures) var type = Util.Figures.Pawn
 export(Util.PieceAllegiance) var allegiance = Util.PieceAllegiance.Neutral
@@ -14,6 +15,7 @@ export(float) var attack_power = 5
 export(bool) var is_active = true;
 
 onready var manager = get_node("/root/Manager")
+onready var movesets = get_node("/root/Movesets")
 onready var pathfinder = get_node("/root/Pathfinder")
 onready var display = $Display
 onready var health_label = $HealthLabel
@@ -30,9 +32,6 @@ var is_selectable: bool = true
 
 func _ready():
 	add_to_group("Piece")
-	if allegiance == Util.PieceAllegiance.Player:
-		add_to_group("Player")
-	
 	self.connect("click", self, "on_click")
 
 	display_health()
@@ -76,6 +75,7 @@ func move_along_planned_path():
 		
 		if len(planned_path) == 0:
 			clear_planned_path_highlight()
+			emit_signal("reached_path_end", self)
 			
 		return true
 	else:
@@ -87,13 +87,13 @@ func highlight_planned_path():
 func clear_planned_path_highlight():
 	path_preview_manager.clear_preview()
 	
-func move_to(cell):
-	var cell_content = board.get_cell_content(cell)
+func move_to(position):
+	var cell_content = board.get_cell_content(position)
 	
 	if cell_content.contains_enemy(self):
 		cell_content.piece.die()
 	
-	self.position = Util.convert_to_position(cell)
+	self.position = Util.convert_to_position(position)
 
 func attack(enemy):
 	enemy.get_attacked(attack_power)
@@ -107,14 +107,16 @@ func get_attacked(dmg: int):
 func die():
 	if is_selected:
 		manager.set_selected_piece(null)
-
-	clear_planned_path_highlight()
+	
 	is_active = false
 	emit_signal("on_death", self)
 	queue_free()
 
 func display_health():
 	health_label.text = str(health) + "/" + str(max_health)
+
+func get_possible_moves(immediatly = false):
+	return movesets.get_moves(self, get_cell(), board, immediatly)
 
 func is_aware_of(piece):
 	return piece in aware_of

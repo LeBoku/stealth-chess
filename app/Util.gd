@@ -7,8 +7,6 @@ const PLAYER_MOVE_HIGHLIGHT = "PLAYER_MOVE"
 const ENEMY_MOVE_HIGHLIGHT = "ENEMY_MOVE"
 const ENEMY_VIEW_HIGHLIGHT = "ENEMY_VIEW"
 
-const CELL_SIZE = 50
-
 const RAD_15_DEG = PI/12
 const RAD_30_DEG = PI/6
 const RAD_45_DEG = PI/4
@@ -37,13 +35,13 @@ static func slice(array: Array, from:int, to = null):
 static func round_to_cell(cell_ish: Vector2):
 	return Vector2(round(cell_ish.x), round(cell_ish.y))
 	
-static func convert_to_position(cell: Vector2):
-	return Vector2(cell.x * CELL_SIZE + CELL_SIZE/2, cell.y * CELL_SIZE + CELL_SIZE/2)
+static func convert_to_position(cell):
+	return Vector2(cell.x * 50 + 50/2, cell.y * 50 + 50/2)
 
-static func convert_to_cell(position: Vector2):
-	return Vector2(floor(position.x / CELL_SIZE), floor(position.y / CELL_SIZE))
+static func convert_to_cell(position):
+	return Vector2(floor(position.x / 50), floor(position.y / 50))
 	
-static func get_rounded_rotation(angle: float):
+static func get_rounded_rotation(angle):
 	return round(angle / RAD_45_DEG) *  RAD_45_DEG
 	
 class ByDistanceSorter:
