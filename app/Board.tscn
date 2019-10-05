@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://app/Manger.gd" type="Script" id=1]
 [ext_resource path="res://app/highlight/HighlightManager.gd" type="Script" id=2]
@@ -6,8 +6,7 @@
 [ext_resource path="res://app/tileset/tiles.res" type="TileSet" id=4]
 [ext_resource path="res://app/Board.gd" type="Script" id=5]
 [ext_resource path="res://app/pieces/Piece.tscn" type="PackedScene" id=6]
-[ext_resource path="res://app/player-control/PlayerControl.tscn" type="PackedScene" id=7]
-[ext_resource path="res://app/enemies/Enemy.tscn" type="PackedScene" id=8]
+[ext_resource path="res://app/enemies/Enemy.tscn" type="PackedScene" id=7]
 
 [node name="Manager" type="Node2D"]
 script = ExtResource( 1 )
@@ -38,31 +37,29 @@ tile_data = PoolIntArray( -589820, 1073741826, 0, -589819, 1073741826, 0, -58981
 script = ExtResource( 5 )
 
 [node name="Knight" parent="Board" instance=ExtResource( 6 )]
-editor/display_folded = true
 position = Vector2( 75, 374 )
 type = 5
-
-[node name="PlayerControl" parent="Board/Knight" instance=ExtResource( 7 )]
+allegiance = 0
 
 [node name="Queen" parent="Board" instance=ExtResource( 6 )]
-editor/display_folded = true
 position = Vector2( 75, 474 )
 type = 5
-
-[node name="PlayerControl" parent="Board/Queen" instance=ExtResource( 7 )]
+allegiance = 0
 
 [node name="E_Rook_1" parent="Board" instance=ExtResource( 6 )]
+editor/display_folded = true
 position = Vector2( 175, -75 )
 type = 5
 
-[node name="E_Rook" parent="Board/E_Rook_1" instance=ExtResource( 8 )]
+[node name="E_Rook" parent="Board/E_Rook_1" instance=ExtResource( 7 )]
 patrol_cells = PoolVector2Array( 3, -2, 10, -2 )
 
 [node name="E_Rook_2" parent="Board" instance=ExtResource( 6 )]
+editor/display_folded = true
 position = Vector2( 525, -75 )
 type = 5
 
-[node name="E_Rook" parent="Board/E_Rook_2" instance=ExtResource( 8 )]
+[node name="E_Rook" parent="Board/E_Rook_2" instance=ExtResource( 7 )]
 patrol_cells = PoolVector2Array( 3, -2, 10, -2 )
 
 [node name="E_Bishop_1" parent="Board" instance=ExtResource( 6 )]
@@ -70,7 +67,7 @@ editor/display_folded = true
 position = Vector2( 475, -275 )
 type = 5
 
-[node name="E_Rook" parent="Board/E_Bishop_1" instance=ExtResource( 8 )]
+[node name="E_Rook" parent="Board/E_Bishop_1" instance=ExtResource( 7 )]
 view_angle = 180
 
 [node name="E_Bishop_2" parent="Board" instance=ExtResource( 6 )]
@@ -78,4 +75,4 @@ editor/display_folded = true
 position = Vector2( 175, -275 )
 type = 5
 
-[node name="E_Rook" parent="Board/E_Bishop_2" instance=ExtResource( 8 )]
+[node name="E_Rook" parent="Board/E_Bishop_2" instance=ExtResource( 7 )]
