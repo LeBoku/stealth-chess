@@ -22,6 +22,7 @@ onready var health_label = $HealthLabel
 onready var path_preview_manager = $PathPreviewManager
 
 onready var board = manager.get_board()
+var aware_of = []
 
 var planned_path = []
 var has_processed_turn: bool = true;
@@ -116,3 +117,6 @@ func display_health():
 
 func get_possible_moves(immediatly = false):
 	return movesets.get_moves(self, get_cell(), board, immediatly)
+
+func is_aware_of(piece):
+	return piece in aware_of

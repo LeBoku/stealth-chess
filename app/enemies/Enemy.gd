@@ -16,7 +16,6 @@ onready var pathfinder = get_node("/root/Pathfinder")
 onready var patrol_helper = PatrolHelper.new()
 
 var attention_state = Util.AttentionStates.None setget set_attention_state
-var previously_detected = []
 
 func _ready():
 	piece.add_to_group("Enemy")
@@ -34,13 +33,13 @@ func _ready():
 func process_turn():
 	var detected = view_cone.detect_things()
 	
-	if len(detected) == 0 and len(previously_detected) > 0:
-		for piece in previously_detected:
-			if is_instance_valid(piece) and view_cone.could_see(piece.get_cell()):
-				detected.append(piece)
+	if len(detected) == 0 and len(piece.aware_of) > 0:
+		for thing in piece.aware_of:
+			if is_instance_valid(thing) and view_cone.could_see(thing.get_cell()):
+				detected.append(thing)
 				break
 	
-	previously_detected = detected
+	piece.aware_of = detected
 	
 	if len(detected) > 0:
 		self.attention_state = Util.AttentionStates.Alerted

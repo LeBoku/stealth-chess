@@ -1,7 +1,7 @@
 enum Figures { Pawn, Rook, Knight, Bishop, King, Queen }
 enum AttentionStates { None, Suspicious, Alerted }
 enum PieceAllegiance { Player, Enemy, Neutral }
-enum PlayerActionTypes { Move, Attack, Unknown }
+enum PlayerActionTypes { Move, Attack, Stealth_Attack, Unknown }
 
 const PLAYER_MOVE_HIGHLIGHT = "PLAYER_MOVE"
 const ENEMY_MOVE_HIGHLIGHT = "ENEMY_MOVE"

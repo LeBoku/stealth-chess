@@ -24,7 +24,11 @@ func display_player_options(piece):
 		var highlight = board.place_element(PlayerMovePreview.instance(), move)
 		
 		if cell_content.contains_enemy(piece):
-			action_type = Util.PlayerActionTypes.Attack
+			var enemy = cell_content.get_piece()
+			if enemy.is_aware_of(piece):
+				action_type = Util.PlayerActionTypes.Attack
+			else:
+				action_type = Util.PlayerActionTypes.Stealth_Attack
 		else:
 			action_type = Util.PlayerActionTypes.Move
 	
@@ -40,10 +44,14 @@ func on_highlight_selected(obj, action_type, target_cell, cell_content):
 	
 	yield(get_tree().create_timer(0.2), "timeout")
 	
-	if action_type == Util.PlayerActionTypes.Attack:
+	if action_type == Util.PlayerActionTypes.Stealth_Attack:
 		var target_piece = cell_content.get_piece()
+		target_piece.get_attacked(target_piece.health)
+		
+	elif action_type == Util.PlayerActionTypes.Attack:
+		var target_piece = cell_content.get_piece()
+		
 		piece.attack(target_piece)
-
 	elif action_type == Util.PlayerActionTypes.Move:
 		piece.move_to(target_cell)
 		
