@@ -2,21 +2,26 @@ extends "res://app/BoardEntity.gd"
 
 signal on_selected
 signal on_deselected
-signal on_eaten
+signal on_death
 signal on_turn
 signal reached_path_end
 
 export(Util.Figures) var type = Util.Figures.Pawn
+export(Util.PieceAllegiance) var allegiance = Util.PieceAllegiance.Neutral
+
+export(float) var max_health = 10
+export(float) var health = 10
+export(float) var attack_power = 5
+export(bool) var is_active = true;
 
 onready var manager = get_node("/root/Manager")
 onready var movesets = get_node("/root/Movesets")
 onready var pathfinder = get_node("/root/Pathfinder")
 onready var display = $Display
+onready var health_label = $HealthLabel
 onready var path_preview_manager = $PathPreviewManager
 
 onready var board = manager.get_board()
-
-var allegiance = Util.PieceAllegiance.Neutral
 
 var planned_path = []
 var has_processed_turn: bool = true;
@@ -27,6 +32,8 @@ var is_selectable: bool = true
 func _ready():
 	add_to_group("Piece")
 	self.connect("click", self, "on_click")
+
+	display_health()
 
 func process_turn():
 	move_along_planned_path()
@@ -83,16 +90,29 @@ func move_to(position):
 	var cell_content = board.get_cell_content(position)
 	
 	if cell_content.contains_enemy(self):
-		cell_content.piece.get_eaten()
+		cell_content.piece.die()
 	
 	self.position = Util.convert_to_position(position)
 
-func get_eaten():
+func attack(enemy):
+	enemy.get_attacked(attack_power)
+
+func get_attacked(dmg: int):
+	health -= dmg
+	display_health()
+	if health <= 0:
+		die()
+
+func die():
 	if is_selected:
 		manager.set_selected_piece(null)
 	
-	emit_signal("on_eaten", self)
+	is_active = false
+	emit_signal("on_death", self)
 	queue_free()
-	
+
+func display_health():
+	health_label.text = str(health) + "/" + str(max_health)
+
 func get_possible_moves(immediatly = false):
 	return movesets.get_moves(self, get_cell(), board, immediatly)

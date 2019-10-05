@@ -19,6 +19,3 @@ func clear_preview():
 	if active_preview != null:
 		active_preview.queue_free()
 		active_preview = null
-
-func _on_Piece_on_eaten(piece):
-	clear_preview()

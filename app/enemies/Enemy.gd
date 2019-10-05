@@ -23,7 +23,7 @@ func _ready():
 	piece.allegiance = Util.PieceAllegiance.Enemy
 	view_cone.set_rotation(view_angle * PI / 180)
 	
-	piece.connect("on_eaten", self, "on_eaten")
+	piece.connect("on_death", self, "on_death")
 	piece.connect("on_turn", self, "process_turn")
 	
 	piece.connect("hover_enter", self, "on_hover_enter")
@@ -71,7 +71,7 @@ func set_attention_state(state):
 		
 	attention_state = state
 	
-func on_eaten(piece):
+func on_death(piece):
 	view_cone.hide_view_cone()
 	queue_free()
 	
