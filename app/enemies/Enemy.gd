@@ -72,6 +72,7 @@ func set_attention_state(state):
 	
 func on_death(piece):
 	view_cone.hide_view_cone()
+	piece.clear_planned_path_highlight()
 	queue_free()
 	
 func on_hover_enter(piece):

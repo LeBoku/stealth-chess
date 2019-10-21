@@ -23,7 +23,6 @@ config/icon="res://icon.png"
 
 Movesets="*res://app/pieces/Movesets.gd"
 Pathfinder="*res://app/Pathfinder.gd"
-PlayerTurnManager="*res://app/player-control/PlayerTurnManager.gd"
 
 [debug]
 

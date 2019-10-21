@@ -1,3 +1,3 @@
-piece / become pure data storage
-	divorce view cone, moveset, pathfinder
-	remove selectable handling
+[gd_resource type="TextFile" format=2]
+
+[resource]
