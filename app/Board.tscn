@@ -57,6 +57,7 @@ type = 5
 
 [node name="E_Rook" parent="Board/E_Rook_1" instance=ExtResource( 8 )]
 patrol_cells = PoolVector2Array( 3, -2, 10, -2 )
+view_angle = 0
 
 [node name="E_Rook_2" parent="Board" instance=ExtResource( 6 )]
 position = Vector2( 525, -75 )
@@ -64,6 +65,7 @@ type = 5
 
 [node name="E_Rook" parent="Board/E_Rook_2" instance=ExtResource( 8 )]
 patrol_cells = PoolVector2Array( 3, -2, 10, -2 )
+view_angle = 0
 
 [node name="E_Bishop_1" parent="Board" instance=ExtResource( 6 )]
 editor/display_folded = true
@@ -71,6 +73,7 @@ position = Vector2( 475, -275 )
 type = 5
 
 [node name="E_Rook" parent="Board/E_Bishop_1" instance=ExtResource( 8 )]
+patrol_cells = PoolVector2Array(  )
 view_angle = 180
 
 [node name="E_Bishop_2" parent="Board" instance=ExtResource( 6 )]
@@ -79,3 +82,5 @@ position = Vector2( 175, -275 )
 type = 5
 
 [node name="E_Rook" parent="Board/E_Bishop_2" instance=ExtResource( 8 )]
+patrol_cells = PoolVector2Array(  )
+view_angle = 0

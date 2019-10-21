@@ -21,6 +21,9 @@ static func rotate_moves(moves):
 	
 	return rotated_moves
 	
+static func is_between(target, start, end):
+	return target > start and target < end
+	
 static func slice(array: Array, from:int, to = null):
 	if to == null or to > len(array):
 		to = len(array)

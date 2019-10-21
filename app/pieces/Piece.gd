@@ -58,14 +58,12 @@ func set_selected(state):
 func is_ally(piece):
 	return piece.allegiance == allegiance
 
-func set_planned_path_to(goal_cell, highlight = false):
+func set_planned_path_to(goal_cell):
 	planned_path = pathfinder.get_shortest_path(get_cell(), goal_cell, self)
 	
 	if planned_path == null:
 		planned_path = []
-	elif highlight:
-		highlight_planned_path()
-		
+
 func move_along_planned_path():
 	if len(planned_path):
 		var next_step = planned_path.front()
